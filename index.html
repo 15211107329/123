@@ -1,2 +1,1818 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>RE:POINT</title><meta http-equiv="refresh" content="0; url=./REPOINT_presentation.html"></head><body><a href="./REPOINT_presentation.html">打开 RE:POINT 汇报</a></body></html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>RE:POINT — 完整服务设计方案</title><style>
+:root{color-scheme:light;--ink:#21372e;--muted:#51675b;--line:#d9e4d9;--paper:#fcfdf9;--accent:#235844}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f0f3eb;color:var(--ink);font:16px/1.78 system-ui,"PingFang SC","Microsoft YaHei",sans-serif}a{color:#215c45;text-underline-offset:4px}button{font:inherit}button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid #1d7b5c;outline-offset:3px}
+.shell{width:min(1390px,100%);margin:auto;display:grid;grid-template-columns:230px minmax(0,1fr);align-items:start;gap:36px;padding:28px clamp(18px,4vw,64px) 60px}
+aside{position:sticky;top:22px;max-height:calc(100dvh - 44px);overflow:auto;padding:12px 12px 12px 0}aside>details>summary{font-weight:750;padding:8px 12px;color:var(--ink)}nav{display:grid;gap:2px}nav a{padding:4px 12px;text-decoration:none;border-radius:6px;color:var(--muted);font-size:.89rem}nav a:hover,nav a[aria-current]{background:#dce9dd;color:#174838}
+main{min-width:0}.hero{background:#163f32;color:#f5f8f2;padding:clamp(24px,5.5vw,67px);border-radius:24px;margin-bottom:24px}.hero h1{font-size:clamp(2rem,5vw,4.1rem);line-height:1.14;letter-spacing:-.045em;margin:0 0 22px;text-wrap:balance}.hero p{max-width:650px;margin:12px 0 0}.hero p:nth-of-type(1){font-size:1.07rem;color:#d1e8d9}.hero p:nth-of-type(n+3){color:#e4eee7}
+.level2{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:clamp(17px,3.5vw,44px);margin:0 0 18px;scroll-margin-top:20px}.level2>hr:last-child{display:none}h2{font-size:clamp(1.27rem,2.6vw,2rem);line-height:1.32;letter-spacing:-.02em;margin:0 0 22px}.chapter-number{color:#527562;font-size:.66em;font-variant-numeric:tabular-nums;margin-right:.65em}h3{line-height:1.4;margin:1.55em 0 .55em}p,ul,ol{margin:0 0 1em}section> :last-child{margin-bottom:0}
+.table-scroll{max-width:100%;overflow:auto;margin:1em 0;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;font-size:.94rem}th,td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}th{text-align:left;background:#e8f0e8}td:first-child,th:first-child{min-width:95px}tr:last-child td{border-bottom:none}
+.widget{margin:1.4em 0;padding:clamp(12px,2.3vw,24px);background:#edf3eb;border:1px solid #dbe7dc;border-radius:14px;overflow:auto}.widget svg{display:block;max-width:100%;max-height:480px;height:auto;margin:10px auto;color:var(--ink)}.ui-grid{display:grid;grid-template-columns:repeat(var(--cols,2),minmax(0,1fr));gap:10px}.ui-grid-item{min-width:0}.ui-card,.ui-box{display:block;padding:10px;border-radius:10px}.ui-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.ui-title,.ui-text,.ui-caption{display:block}.ui-title{font-size:1.06rem}.ui-title.size-xl,.ui-title.size-2xl{font-size:1.3rem}.ui-caption{color:#3d5549;font-size:.84rem}.references{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0}.references figure{margin:0;flex:1 1 170px;max-width:360px}.references img{display:block;width:100%;height:1px;opacity:0;max-height:230px;object-fit:contain;border-radius:8px;background:#e3ebe2}.references img[data-loaded]{height:auto;opacity:1}.references a{font-size:.84rem}hr{border:0;border-top:1px solid var(--line);margin:14px 0}.ui-button,.ui-pressable{cursor:pointer;color:var(--ink);border:1px solid #b8cdbd;background:#f7fbf6;border-radius:8px;padding:9px 12px;margin:4px 0;text-align:left}.ui-pressable:hover,.ui-button:hover,.ui-button[aria-pressed=true]{background:#d6e9da!important}.icon{font-size:1.2em}.store-switch{display:flex;gap:8px;flex-wrap:wrap}#prototype{max-width:570px;margin:auto}#prototype button{display:block;width:100%;min-height:44px}footer{padding:14px 4px;font-size:.88rem;color:var(--muted)}
+@media(max-width:800px){.shell{display:block;padding:10px 12px 28px}aside{position:static;max-height:none;padding:0 0 8px}aside[hidden]{display:none}nav{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{border-radius:16px}.widget .ui-grid{gap:6px}.widget .ui-grid:not([style]),.widget .ui-grid[style="--cols:2"]{grid-template-columns:repeat(2,minmax(0,1fr))}.widget .ui-grid[style="--cols:3"]{grid-template-columns:repeat(2,minmax(0,1fr))}.ui-table{min-width:530px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{aside,footer{display:none}.shell{display:block;padding:0}.hero,.level2,.widget{background:white;color:#111}.hero p:nth-of-type(n){color:#222}.level2{border:none;padding:0}.widget{break-inside:avoid}}
+
+body{min-height:100vh}
+.shell{display:block;width:min(1440px,100%);padding:0 clamp(10px,2.4vw,32px) 16px}
+.deck-header{position:sticky;top:0;z-index:10;background:#f0f3eb;padding:10px 0;border-bottom:1px solid var(--line)}
+.deck-header nav{display:flex;flex-wrap:wrap;gap:4px 5px}
+.deck-header nav a{white-space:nowrap;padding:3px 9px;border:1px solid transparent;line-height:1.55}
+.deck-header nav a[aria-current="page"]{background:#163f32;color:#fff}
+.deck-stage{aspect-ratio:16/9;position:relative;isolation:isolate;margin:10px auto 0;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--paper)}
+.deck-stage>.level1{height:100%;min-height:0}
+.deck-stage .hero,.deck-stage .level2{height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;border:none;border-radius:0;margin:0}
+.deck-stage .hero{align-content:center}
+.deck-stage [hidden]{display:none!important}
+.deck-controls{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;padding:9px 0 0}
+.deck-controls button{justify-self:start;cursor:pointer;color:var(--ink);border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:3px 10px}
+.deck-controls button:last-child{justify-self:end}
+.deck-controls button:disabled{opacity:.45;cursor:default}
+#page-count{font-variant-numeric:tabular-nums}
+@media(max-width:700px){.deck-header nav{flex-wrap:nowrap;overflow:auto;padding-bottom:4px}.deck-stage .hero{align-content:normal}.deck-stage .hero,.deck-stage .level2{padding:14px}.deck-stage{border-radius:12px}}
+@media print{.deck-stage,.deck-stage>.level1,.deck-stage .hero,.deck-stage .level2{aspect-ratio:auto;height:auto;overflow:visible}.deck-stage [hidden]{display:block!important}.deck-header,.deck-controls{display:none}.deck-stage .level2{break-before:page}}
+</style></head>
+<body><div class="shell"><header class="deck-header"><nav aria-label="章节目录"><a href="#top">封面</a><a href="#chapter-01">设计任务书</a><a href="#chapter-02">从研究发现到设计策略</a><a href="#chapter-03">核心服务概念</a><a href="#chapter-04">自适应服务机制</a><a href="#chapter-05">四类模块化服务节点</a><a href="#chapter-06">服务交互原型</a><a href="#chapter-07">顾客旅程再设计</a><a href="#chapter-08">完整服务蓝图</a><a href="#chapter-09">实体模块系统</a><a href="#chapter-10">三种店铺适配方案</a><a href="#prototyping-strategy原型制作计划">原型制作计划</a><a href="#evaluation-design学术验证方案">学术验证方案</a><a href="#implementation-toolkit服务实施工具包">服务实施工具包</a><a href="#final-deliverables最终毕业设计成果">最终毕业设计成果</a><a href="#graduation-exhibition毕业展展示规划">毕业展展示规划</a><a href="#development-roadmap研究与制作时间规划">研究与制作时间规划</a><a href="#scope-control硕士研究范围控制">硕士研究范围控制</a><a href="#研究题目建议">18. 研究题目建议</a><a href="#与博士研究的衔接">19. 与博士研究的衔接</a><a href="#总结">总结</a></nav></header>
+<main class="deck-stage" aria-label="RE:POINT 演示"><section id="repoint-完整服务设计方案" class="level1">
+<header class="hero" id="top"><h1>RE:POINT — 完整服务设计方案</h1>
+<p><strong>Adaptive Distributed In-store Service Support System for
+Older Customers in Reuse Shops</strong></p>
+<p>面向老年顾客的二手商店自适应分布式服务支持系统</p>
+<p>这次不再以效果图和实体设施的外观为主，而是深入设计整套服务系统，包括服务如何运行、顾客如何参与、工作人员如何响应、不同店铺如何适配，以及最终如何制作原型和进行学术验证。</p>
+<p>以 IKEA Info Point 的系列化服务设施、Deskless Service Model
+的分布式人员服务机制，以及 A Better A&amp;E
+的信息支持方式作为概念参考。</p>
+</header><hr>
+<section id="chapter-01" class="level2">
+<h2><span class="chapter-number">01</span>Design Brief｜设计任务书</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>项目名称</td>
+<td>RE:POINT</td>
+</tr>
+<tr class="even">
+<td>设计类型</td>
+<td>Spatial Service Design / Product-Service System</td>
+</tr>
+<tr class="odd">
+<td>研究对象</td>
+<td>2nd STREET 实体二手商店</td>
+</tr>
+<tr class="even">
+<td>主要用户</td>
+<td>65岁及以上顾客</td>
+</tr>
+<tr class="odd">
+<td>设计对象</td>
+<td>店内信息与服务支持机制</td>
+</tr>
+<tr class="even">
+<td>设计目标</td>
+<td>提升信息理解、自主行动及服务可达性</td>
+</tr>
+<tr class="odd">
+<td>设计策略</td>
+<td>自适应、分布式、模块化、连续性</td>
+</tr>
+<tr class="even">
+<td>设计限制</td>
+<td>尽量利用现有空间与人员，不依赖个人智能手机</td>
+</tr>
+<tr class="odd">
+<td>最终成果</td>
+<td>服务系统、实体交互原型、空间配置模型、实施指南</td>
+</tr>
+</tbody>
+</table>
+</div><section id="核心设计命题" class="level3">
+<h3>核心设计命题</h3>
+<p><strong>如何通过重新组织实体二手商店中的信息、空间和人员服务，使老年顾客能够在不同服务阶段获得与自身需求相匹配的支持？</strong></p>
+<p>这里的设计对象不再是单个信息载体，而是顾客获得服务的方式。</p>
+</section>
+</section>
+<section id="chapter-02" class="level2">
+<h2><span class="chapter-number">02</span>Research Translation｜从研究发现到设计策略</h2>
+<p>结合你之前对9家店铺的观察、问卷及访谈，将现有研究转化为具体的设计介入。</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>前期研究发现</th>
+<th>服务层面的问题</th>
+<th>设计策略</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>入口信息不足</td>
+<td>顾客难以建立整体认知</td>
+<td>入口服务初始化</td>
+</tr>
+<tr class="even">
+<td>商品小分类难以理解</td>
+<td>信息支持与任务需求不匹配</td>
+<td>分层信息服务</td>
+</tr>
+<tr class="odd">
+<td>跨楼层引导不连续</td>
+<td>不同空间节点之间缺少衔接</td>
+<td>分布式连续支持</td>
+</tr>
+<tr class="even">
+<td>休息区及厕所位置难以获知</td>
+<td>基础服务信息不易获取</td>
+<td>就近服务查询</td>
+</tr>
+<tr class="odd">
+<td>出售流程不清楚</td>
+<td>顾客难以预测下一步行动</td>
+<td>服务阶段可视化</td>
+</tr>
+</tbody>
+</table>
+</div><p>员工协助机制则属于需要进一步验证的设计机会，而不是已经由现有数据充分证明的研究结论。</p>
+</section>
+<section id="chapter-03" class="level2">
+<h2><span class="chapter-number">03</span>Service Concept｜核心服务概念</h2>
+<p>RE:POINT
+的核心是将传统的集中式、被动式信息服务，转变为分布式、按需获取的服务支持。</p>
+<div class="widget"><div class="ui-card">
+  <div class="ui-grid" style="--cols:2">
+    <div class="ui-grid-item">
+      <span class="ui-text">现有服务模式</span>
+      <svg role="img" aria-label="设计示意图" viewbox="0 0 160 190" width="100%">
+        <rect x="5" y="5" width="150" height="178" rx="4" fill="#888888" fill-opacity=".06" stroke="#999"></rect>
+        
+          
+            <rect x="19" y="20" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+            <rect x="19" y="75" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+        
+          
+            <rect x="61" y="20" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+            <rect x="61" y="75" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+        
+          
+            <rect x="103" y="20" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+            <rect x="103" y="75" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+        
+        <rect x="99" y="142" width="45" height="27" rx="3" fill="#7c8581"></rect>
+        <text x="121" y="153" font-size="8" fill="white" text-anchor="middle">服务</text>
+        <text x="121" y="163" font-size="8" fill="white" text-anchor="middle">柜台</text>
+        <path d="M22 177 V133 H92 V64 H51 V120 H121 V140" stroke="#bc8065" stroke-width="2" stroke-dasharray="4 3" fill="none"></path>
+        
+          <circle cx="92" cy="64" r="10" fill="#bd8267"></circle>
+          <text x="92" y="68" fill="white" font-size="12" text-anchor="middle">?</text>
+        
+          <circle cx="51" cy="120" r="10" fill="#bd8267"></circle>
+          <text x="51" y="124" fill="white" font-size="12" text-anchor="middle">?</text>
+        
+        <text x="23" y="174" font-size="8" fill="currentColor" text-anchor="middle">入口</text>
+      </svg>
+      <small class="ui-caption">顾客自行寻找信息，遇到困难后寻找工作人员。</small>
+    </div>
+    <div class="ui-grid-item">
+      <span class="ui-text">RE:POINT 服务模式</span>
+      <svg role="img" aria-label="设计示意图" viewbox="0 0 160 190" width="100%">
+        <rect x="5" y="5" width="150" height="178" rx="4" fill="#888888" fill-opacity=".06" stroke="#999"></rect>
+        
+          
+            <rect x="19" y="20" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+            <rect x="19" y="75" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+        
+          
+            <rect x="61" y="20" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+            <rect x="61" y="75" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+        
+          
+            <rect x="103" y="20" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+            <rect x="103" y="75" width="25" height="37" rx="2" fill="#a5aaa5" fill-opacity=".45"></rect>
+          
+        
+        <rect x="99" y="142" width="45" height="27" rx="3" fill="#7c8581"></rect>
+        <path d="M22 177 V133 H92 V64 H51 V120 H121 V140" stroke="#58856b" stroke-width="2" stroke-dasharray="4 3" fill="none"></path>
+        <path d="M22 160 L92 64 L51 120 L121 145 L22 160" fill="none" stroke="#58856b" stroke-width="1" stroke-dasharray="2 3"></path>
+        
+          <circle cx="22" cy="160" r="10" fill="#58856b"></circle>
+          <text x="22" y="164" fill="white" font-size="10" text-anchor="middle">W</text>
+        
+          <circle cx="92" cy="64" r="10" fill="#58856b"></circle>
+          <text x="92" y="68" fill="white" font-size="10" text-anchor="middle">I</text>
+        
+          <circle cx="51" cy="120" r="10" fill="#58856b"></circle>
+          <text x="51" y="124" fill="white" font-size="10" text-anchor="middle">A</text>
+        
+          <circle cx="121" cy="145" r="10" fill="#58856b"></circle>
+          <text x="121" y="149" fill="white" font-size="10" text-anchor="middle">S</text>
+        
+        <text x="23" y="174" font-size="8" fill="currentColor" text-anchor="middle">入口</text>
+      </svg>
+      <small class="ui-caption">顾客在需求发生的位置获得适当的服务支持。</small>
+    </div>
+  </div>
+  <hr>
+  <div class="ui-row">
+    <small class="ui-caption">W — 入口节点</small>
+    <small class="ui-caption">I — 信息节点</small>
+    <small class="ui-caption">A — 协助节点</small>
+    <small class="ui-caption">S — 出售节点</small>
+  </div>
+</div>
+</div>
+<p>整个系统由四个设计层构成。</p>
+<div class="widget"><div class="ui-box">
+  
+    <div class="ui-box" style="background:#d4e2d5">
+      <div class="ui-row">
+        <strong class="ui-title size-xl" style="color:#52655b">01</strong>
+        <div class="ui-box">
+          <strong>Service Logic · 服务逻辑层</strong>
+          <span class="ui-text size-sm">根据顾客需求调整服务支持程度</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-box"><span class="icon" aria-hidden="true">↕</span></div>
+  
+    <div class="ui-box" style="background:#dce5eb">
+      <div class="ui-row">
+        <strong class="ui-title size-xl" style="color:#52655b">02</strong>
+        <div class="ui-box">
+          <strong>Touchpoint Network · 触点网络层</strong>
+          <span class="ui-text size-sm">将不同功能的服务节点分布在店内</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-box"><span class="icon" aria-hidden="true">↕</span></div>
+  
+    <div class="ui-box" style="background:#ebe1ce">
+      <div class="ui-row">
+        <strong class="ui-title size-xl" style="color:#52655b">03</strong>
+        <div class="ui-box">
+          <strong>Human Support · 人员服务层</strong>
+          <span class="ui-text size-sm">建立顾客与工作人员之间的协作机制</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-box"><span class="icon" aria-hidden="true">↕</span></div>
+  
+    <div class="ui-box" style="background:#e3dfd8">
+      <div class="ui-row">
+        <strong class="ui-title size-xl" style="color:#52655b">04</strong>
+        <div class="ui-box">
+          <strong>Configuration System · 配置系统层</strong>
+          <span class="ui-text size-sm">根据店铺类型调整节点数量、功能及位置</span>
+        </div>
+      </div>
+    </div>
+    
+  
+</div>
+</div>
+<hr>
+</section>
+<section id="chapter-04" class="level2">
+<h2><span class="chapter-number">04</span>Adaptive Service Mechanism｜自适应服务机制</h2>
+<p>自适应并不意味着必须使用AI，也不意味着系统自动判断顾客是否年老或能力不足。</p>
+<p>在硕士阶段，自适应主要通过<strong>顾客自主选择、信息逐层展开和服务模式切换</strong>来实现。</p>
+<div class="widget"><div class="ui-card">
+  <strong class="ui-title size-lg">三个服务支持层级</strong>
+  <div class="ui-row">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://goetheweb.jp/uploads/2025/06/tsunaki-ichinohe-05.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://goetheweb.jp/uploads/2025/06/tsunaki-ichinohe-05.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <div class="ui-box">
+      <small class="ui-caption">LEVEL 01</small>
+      <strong>Self-service｜自主服务</strong>
+
+      顾客自主浏览、寻找商品和完成任务，不需要额外干预。
+    </div>
+  </div>
+  <hr>
+  <div class="ui-row">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://www.st-michaels-hospice.org.uk/app/uploads/2026/03/53755442139_21144bb989_5k.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.st-michaels-hospice.org.uk/app/uploads/2026/03/53755442139_21144bb989_5k.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <div class="ui-box">
+      <small class="ui-caption">LEVEL 02</small>
+      <strong>Guided Service｜引导服务</strong>
+
+      顾客获取更详细的分类信息、空间位置及分步骤行动指引。
+    </div>
+  </div>
+  <hr>
+  <div class="ui-row">
+    
+    <div class="ui-box">
+      <small class="ui-caption">LEVEL 03</small>
+      <strong>Assisted Service｜协助服务</strong>
+
+      顾客主动提出需求，由工作人员提供有针对性的帮助。
+    </div>
+  </div>
+  <svg role="img" aria-label="设计示意图" viewbox="0 0 340 92" width="100%">
+    
+      <rect x="4" y="8" width="100" height="37" rx="5" fill="#d7e3d6"></rect>
+      <text x="54" y="30" font-size="12" text-anchor="middle" fill="#35443b">自主服务</text>
+    
+      <rect x="120" y="8" width="100" height="37" rx="5" fill="#e8dfca"></rect>
+      <text x="170" y="30" font-size="12" text-anchor="middle" fill="#35443b">引导服务</text>
+    
+      <rect x="236" y="8" width="100" height="37" rx="5" fill="#d8e2eb"></rect>
+      <text x="286" y="30" font-size="12" text-anchor="middle" fill="#35443b">协助服务</text>
+    
+    <path d="M105 26 H119 M115 22 l4 4 -4 4 M121 35 H105 M109 31 l-4 4 4 4 M221 26 H235 M231 22 l4 4 -4 4 M237 35 H221 M225 31 l-4 4 4 4" stroke="#77857b" fill="none"></path>
+    <path d="M286 47 V63 H54 V47 M50 52 l4 -5 4 5" stroke="#77857b" stroke-dasharray="4 3" fill="none"></path>
+    <text x="170" y="84" text-anchor="middle" font-size="10" fill="currentColor">支持程度可以随需求变化，不固定用户类型</text>
+  </svg>
+</div>
+</div>
+<section id="服务运行规则" class="level3">
+<h3>服务运行规则</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>触发条件</th>
+<th>系统响应</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>顾客熟悉店铺</td>
+<td>不主动干预</td>
+</tr>
+<tr class="even">
+<td>顾客不知道商品位置</td>
+<td>提供区域及分类引导</td>
+</tr>
+<tr class="odd">
+<td>顾客需要更详细的信息</td>
+<td>展开任务相关信息</td>
+</tr>
+<tr class="even">
+<td>顾客无法独立完成任务</td>
+<td>提供人工协助入口</td>
+</tr>
+<tr class="odd">
+<td>员工暂时无法响应</td>
+<td>告知等待方式或替代支持</td>
+</tr>
+<tr class="even">
+<td>顾客已经解决问题</td>
+<td>返回自主服务模式</td>
+</tr>
+</tbody>
+</table>
+</div><p>这一机制的设计价值在于：既不强制老年顾客接受帮助，也不假设所有顾客都能够完全独立地完成任务。</p>
+<hr>
+</section>
+</section>
+<section id="chapter-05" class="level2">
+<h2><span class="chapter-number">05</span>Service Modules｜四类模块化服务节点</h2>
+<p>以下图片是实体设施的形式参考，具体造型、尺寸和交互方式仍需要进行设计迭代。</p>
+<div class="widget"><div class="ui-box">
+  <div class="references"><figure><img loading="lazy" decoding="async" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ecf0ef200989565.666bb867b300d.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ecf0ef200989565.666bb867b300d.jpg" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://kabo-pydo.com/wp-content/uploads/2019/03/info-punkt_design_by_kabo-pydo_producer_ikea_07.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://kabo-pydo.com/wp-content/uploads/2019/03/info-punkt_design_by_kabo-pydo_producer_ikea_07.jpg" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure></div>
+  <strong class="ui-title size-xl">W — Welcome Point</strong>
+  <strong>入口服务初始化节点</strong>
+
+  功能是帮助顾客建立对店铺的整体认知，并找到适合自身需求的服务入口。
+
+  | 模块组成 | 功能 |
+  |---|---|
+  | 店铺总览模块 | 商品区域、楼层及设施 |
+  | 服务选择模块 | 购物、出售、寻找帮助 |
+  | 流程预览模块 | 了解服务步骤 |
+  | 信息获取模块 | 获取对应的任务信息 |
+
+  设计重点：入口认知、服务选择、信息优先级。
+
+  <hr>
+  <div class="references"><figure><img loading="lazy" decoding="async" src="https://static.commerceplatform.services/images/dm021tlw.ra15.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://static.commerceplatform.services/images/dm021tlw.ra15.jpg" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif/v1/fit/w_280%2Ch_198%2Cq_90%2Cenc_avif%2Cquality_auto/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://static.wixstatic.com/media/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif/v1/fit/w_280%2Ch_198%2Cq_90%2Cenc_avif%2Cquality_auto/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure></div>
+  <strong class="ui-title size-xl">I — Information Point</strong>
+  <strong>分布式信息服务节点</strong>
+
+  设置在商品区域、楼层转换位置和容易产生决策困难的地点。
+
+  | 模块组成 | 功能 |
+  |---|---|
+  | 区域信息模块 | 当前所在位置 |
+  | 商品分类模块 | 大分类与小分类查询 |
+  | 行动引导模块 | 下一步前往哪里 |
+  | 服务连接模块 | 连接人工协助服务 |
+
+  设计重点：信息层级、空间定位、交互理解和连续性。
+
+  <hr>
+  <div class="references"><figure><img loading="lazy" decoding="async" src="https://bciprod.azureedge.net/media/24815/e4690_1.jpg?anchor=center&amp;mode=crop" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://bciprod.azureedge.net/media/24815/e4690_1.jpg?anchor=center&amp;mode=crop" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://www.rdbureau.com/photo/1616409226.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.rdbureau.com/photo/1616409226.jpg" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure></div>
+  <strong class="ui-title size-xl">A — Assistance Point</strong>
+  <strong>移动式人工协助节点</strong>
+
+  将工作人员的服务能力从固定柜台延伸至顾客实际产生需求的位置。
+
+  | 模块组成 | 功能 |
+  |---|---|
+  | 移动设施模块 | 根据店内需求调整位置 |
+  | 服务识别模块 | 让顾客识别可求助对象 |
+  | 需求确认模块 | 明确顾客需要何种帮助 |
+  | 员工操作模块 | 获取必要的服务信息 |
+
+  设计重点：服务可达性、顾客与员工互动、人员响应机制。
+
+  <hr>
+  <div class="references"><figure><img loading="lazy" decoding="async" src="https://www.tf-style.com/img/blog/378/201406122228191.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.tf-style.com/img/blog/378/201406122228191.jpg" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://site-images.hp.admin.can-ly.com/images/cms/edited/directories/13/stores/92193/20260317151432shop_image.webp" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://site-images.hp.admin.can-ly.com/images/cms/edited/directories/13/stores/92193/20260317151432shop_image.webp" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure></div>
+  <strong class="ui-title size-xl">S — Sell Point</strong>
+  <strong>商品出售服务节点</strong>
+
+  针对二手商店特有的商品出售、估价及交易服务。
+
+  | 模块组成 | 功能 |
+  |---|---|
+  | 出售流程模块 | 解释服务步骤及要求 |
+  | 商品交接模块 | 登记和确认商品 |
+  | 进度反馈模块 | 了解当前服务阶段 |
+  | 结果确认模块 | 理解估价及交易选择 |
+
+  设计重点：服务流程透明度、等待体验、决策支持。
+</div>
+</div>
+<hr>
+</section>
+<section id="chapter-06" class="level2">
+<h2><span class="chapter-number">06</span>Interaction Design｜服务交互原型</h2>
+<p>这里可以发挥你的UI/UX设计能力。不是开发一个独立APP，而是设计不同实体服务节点中的统一交互系统。</p>
+<p>以下是一个可点击的低保真交互原型，用于演示 Information Point
+的基本服务逻辑。</p>
+<div class="widget"><div id="prototype"><div class="ui-box" style="background:#dedbd1">
+  <div class="ui-row">
+    <strong class="ui-title size-lg" style="color:#244e3c">RE:POINT</strong>
+    <small class="ui-caption">Information Point / 02</small>
+  </div>
+  <div class="ui-box" style="background:#f9f9f3">
+    
+      <strong class="ui-title size-2xl" style="color:#244e3c">何をお探しですか？</strong>
+      <span class="ui-text" style="color:#5b6b60">您需要什么帮助？</span>
+      
+        <button class="ui-pressable" type="button" data-state='{"screen":"category"}' style="background:#e6ede4">
+          <div class="ui-row">
+            <span class="icon" aria-hidden="true">⌕</span>
+            <div class="ui-box">
+              <strong class="ui-title size-lg" style="color:#244e3c">商品を探す</strong>
+              <small class="ui-caption">寻找商品</small>
+            </div>
+            <span class="icon" aria-hidden="true">›</span>
+          </div>
+        </button>
+      
+        <button class="ui-pressable" type="button" data-state='{"screen":"facility"}' style="background:#e6ede4">
+          <div class="ui-row">
+            <span class="icon" aria-hidden="true">⌖</span>
+            <div class="ui-box">
+              <strong class="ui-title size-lg" style="color:#244e3c">店内の場所を知る</strong>
+              <small class="ui-caption">查询店内设施</small>
+            </div>
+            <span class="icon" aria-hidden="true">›</span>
+          </div>
+        </button>
+      
+        <button class="ui-pressable" type="button" data-state='{"screen":"sell"}' style="background:#e6ede4">
+          <div class="ui-row">
+            <span class="icon" aria-hidden="true">□</span>
+            <div class="ui-box">
+              <strong class="ui-title size-lg" style="color:#244e3c">買取について</strong>
+              <small class="ui-caption">了解出售服务</small>
+            </div>
+            <span class="icon" aria-hidden="true">›</span>
+          </div>
+        </button>
+      
+        <button class="ui-pressable" type="button" data-state='{"screen":"help"}' style="background:#e6ede4">
+          <div class="ui-row">
+            <span class="icon" aria-hidden="true">◇</span>
+            <div class="ui-box">
+              <strong class="ui-title size-lg" style="color:#244e3c">スタッフに相談する</strong>
+              <small class="ui-caption">寻求员工帮助</small>
+            </div>
+            <span class="icon" aria-hidden="true">›</span>
+          </div>
+        </button>
+      
+    
+    
+  </div>
+  <small class="ui-caption">RE:POINT · Interactive Concept Prototype</small>
+</div>
+</div></div>
+<caption>
+这是用于研究概念验证的交互原型，商品分类及空间位置均为示例，不代表2nd
+STREET的真实库存和布局。
+</caption>
+<p>这个原型后续可以使用 Figma
+制作高保真版本，再安装在实体服务节点上进行体验测试。</p>
+<hr>
+</section>
+<section id="chapter-07" class="level2">
+<h2><span class="chapter-number">07</span>Customer Journey｜顾客旅程再设计</h2>
+<p>以一位希望寻找特定商品的老年顾客为例。</p>
+<div class="widget"><div class="ui-card">
+  <strong class="ui-title size-lg">As-is Journey — 现有服务体验</strong>
+  <svg role="img" aria-label="设计示意图" viewbox="0 0 340 153" width="100%">
+    
+      <path d="M12 32 H328" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 3"></path>
+    
+      <path d="M12 65 H328" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 3"></path>
+    
+      <path d="M12 98 H328" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 3"></path>
+    
+    <path d="M30 44 C50 44 74 83 100 83 S147 113 170 113 S217 68 240 68 S286 45 310 45" fill="none" stroke="#bc846c" stroke-width="2.5"></path>
+    
+      <circle cx="30" cy="44" r="4.5" fill="#bc846c"></circle>
+      <text x="30" y="140" font-size="10" text-anchor="middle" fill="currentColor">入店</text>
+    
+      <circle cx="100" cy="83" r="4.5" fill="#bc846c"></circle>
+      <text x="100" y="140" font-size="10" text-anchor="middle" fill="currentColor">寻找区域</text>
+    
+      <circle cx="170" cy="113" r="4.5" fill="#bc846c"></circle>
+      <text x="170" y="140" font-size="10" text-anchor="middle" fill="currentColor">产生困惑</text>
+    
+      <circle cx="240" cy="68" r="4.5" fill="#bc846c"></circle>
+      <text x="240" y="140" font-size="10" text-anchor="middle" fill="currentColor">询问员工</text>
+    
+      <circle cx="310" cy="45" r="4.5" fill="#bc846c"></circle>
+      <text x="310" y="140" font-size="10" text-anchor="middle" fill="currentColor">完成任务</text>
+    
+  </svg>
+  <div class="ui-grid" style="--cols:5">
+    
+      <div class="ui-grid-item"><small class="ui-caption">不熟悉布局</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">反复寻找</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">无法判断下一步</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">寻找帮助</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">完成或放弃</small></div>
+    
+  </div>
+  <hr>
+  <strong class="ui-title size-lg">To-be Journey — RE:POINT</strong>
+  <svg role="img" aria-label="设计示意图" viewbox="0 0 340 153" width="100%">
+    
+      <path d="M12 32 H328" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 3"></path>
+    
+      <path d="M12 65 H328" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 3"></path>
+    
+      <path d="M12 98 H328" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 3"></path>
+    
+    <path d="M30 65 C50 65 74 43 100 43 S147 58 170 58 S217 35 240 35 S286 24 310 24" fill="none" stroke="#58866a" stroke-width="2.5"></path>
+    
+      <circle cx="30" cy="65" r="4.5" fill="#58866a"></circle>
+      <text x="30" y="140" font-size="10" text-anchor="middle" fill="currentColor">入店</text>
+    
+      <circle cx="100" cy="43" r="4.5" fill="#58866a"></circle>
+      <text x="100" y="140" font-size="10" text-anchor="middle" fill="currentColor">获取信息</text>
+    
+      <circle cx="170" cy="58" r="4.5" fill="#58866a"></circle>
+      <text x="170" y="140" font-size="10" text-anchor="middle" fill="currentColor">区域引导</text>
+    
+      <circle cx="240" cy="35" r="4.5" fill="#58866a"></circle>
+      <text x="240" y="140" font-size="10" text-anchor="middle" fill="currentColor">按需协助</text>
+    
+      <circle cx="310" cy="24" r="4.5" fill="#58866a"></circle>
+      <text x="310" y="140" font-size="10" text-anchor="middle" fill="currentColor">完成任务</text>
+    
+  </svg>
+  <div class="ui-grid" style="--cols:5">
+    
+      <div class="ui-grid-item"><small class="ui-caption">了解服务</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">明确目标</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">就近获取支持</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">自由切换模式</small></div>
+    
+      <div class="ui-grid-item"><small class="ui-caption">自主完成</small></div>
+    
+  </div>
+  <small class="ui-caption">情绪曲线为预期体验示意，并非实测数据。</small>
+</div>
+</div>
+<section id="服务情境故事板" class="level3">
+<h3>服务情境故事板</h3>
+<div class="widget"><div class="ui-grid" style="--cols:2">
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://hugmug.jp/uploads/2026/02/0205_0205.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://hugmug.jp/uploads/2026/02/0205_0205.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>01 — Enter</strong>
+
+    <span class="ui-text size-sm">顾客进入店铺，希望寻找一件适合自己的外套。</span>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://sklep.lobos.pl/lobos_files/media/blog/1523/nawigacja-wayfinding-ds.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://sklep.lobos.pl/lobos_files/media/blog/1523/nawigacja-wayfinding-ds.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>02 — Orient</strong>
+
+    <span class="ui-text size-sm">通过入口服务节点了解商品区域及可用服务。</span>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://images.squarespace-cdn.com/content/v1/6908e36a76e1cd4ede23f56b/1f8b083e-d47a-40bd-b5b0-419e6125adea/Hopes_Shawne-63.jpg?format=2500w" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://images.squarespace-cdn.com/content/v1/6908e36a76e1cd4ede23f56b/1f8b083e-d47a-40bd-b5b0-419e6125adea/Hopes_Shawne-63.jpg?format=2500w" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>03 — Explore</strong>
+
+    <span class="ui-text size-sm">顾客按照引导自主进入相应商品区域。</span>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://specials-images.forbesimg.com/imageserve/627e94859591e4d9070215a8/960x0.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://specials-images.forbesimg.com/imageserve/627e94859591e4d9070215a8/960x0.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>04 — Request</strong>
+
+    <span class="ui-text size-sm">遇到分类问题时，在附近节点获取更具体的信息。</span>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://m1.aboluowang.com/uploadfile/2026/0127/20260127154140450.jpeg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://m1.aboluowang.com/uploadfile/2026/0127/20260127154140450.jpeg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>05 — Assist</strong>
+
+    <span class="ui-text size-sm">仍无法解决时，工作人员提供针对性的帮助。</span>
+  </div>
+  <div class="ui-grid-item">
+    
+    <strong>06 — Complete</strong>
+
+    <span class="ui-text size-sm">顾客自主选择商品并完成购物任务。</span>
+  </div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="chapter-08" class="level2">
+<h2><span class="chapter-number">08</span>Service Blueprint｜完整服务蓝图</h2>
+<div class="widget"><div class="ui-box">
+  <strong class="ui-title size-lg">RE:POINT Service Blueprint</strong>
+  <small class="ui-caption">核心购物服务情境</small>
+  <div class="ui-box">
+    <div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table class="ui-table">
+      <tr class="ui-table-row">
+        <td class="ui-table-cell"><strong>服务阶段</strong></td>
+        
+          <td class="ui-table-cell"><div class="ui-box" style="background:#3e6251"><span class="ui-text size-sm" style="color:#ffffff">入店</span></div></td>
+        
+          <td class="ui-table-cell"><div class="ui-box" style="background:#3e6251"><span class="ui-text size-sm" style="color:#ffffff">信息获取</span></div></td>
+        
+          <td class="ui-table-cell"><div class="ui-box" style="background:#3e6251"><span class="ui-text size-sm" style="color:#ffffff">自主探索</span></div></td>
+        
+          <td class="ui-table-cell"><div class="ui-box" style="background:#3e6251"><span class="ui-text size-sm" style="color:#ffffff">困难与求助</span></div></td>
+        
+          <td class="ui-table-cell"><div class="ui-box" style="background:#3e6251"><span class="ui-text size-sm" style="color:#ffffff">完成任务</span></div></td>
+        
+      </tr>
+      
+        <tr class="ui-table-row">
+          <td class="ui-table-cell"><strong>实体触点</strong></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e0e5dc"><span class="ui-text size-sm">入口节点</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e0e5dc"><span class="ui-text size-sm">信息界面</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e0e5dc"><span class="ui-text size-sm">商品区节点</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e0e5dc"><span class="ui-text size-sm">协助节点</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e0e5dc"><span class="ui-text size-sm">收银柜台</span></div></td>
+          
+        </tr>
+        
+      
+        <tr class="ui-table-row">
+          <td class="ui-table-cell"><strong>顾客行为</strong></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#d8e5d7"><span class="ui-text size-sm">明确到店目的</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#d8e5d7"><span class="ui-text size-sm">选择信息支持</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#d8e5d7"><span class="ui-text size-sm">寻找目标商品</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#d8e5d7"><span class="ui-text size-sm">提出具体需求</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#d8e5d7"><span class="ui-text size-sm">完成购物</span></div></td>
+          
+        </tr>
+        
+          <tr class="ui-table-row">
+            <td class="ui-table-cell" colspan="6">
+              <div class="ui-row">
+                <div class="ui-box"><hr></div>
+                <small class="ui-caption">Line of Interaction · 互动线</small>
+                <div class="ui-box"><hr></div>
+              </div>
+            </td>
+          </tr>
+        
+      
+        <tr class="ui-table-row">
+          <td class="ui-table-cell"><strong>前台服务</strong></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#dbe5ec"><span class="ui-text size-sm">展示可用服务</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#dbe5ec"><span class="ui-text size-sm">提供任务信息</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#dbe5ec"><span class="ui-text size-sm">提供位置确认</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#dbe5ec"><span class="ui-text size-sm">员工响应与协助</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#dbe5ec"><span class="ui-text size-sm">确认任务完成</span></div></td>
+          
+        </tr>
+        
+          <tr class="ui-table-row">
+            <td class="ui-table-cell" colspan="6">
+              <div class="ui-row">
+                <div class="ui-box"><hr></div>
+                <small class="ui-caption">Line of Visibility · 可视线</small>
+                <div class="ui-box"><hr></div>
+              </div>
+            </td>
+          </tr>
+        
+      
+        <tr class="ui-table-row">
+          <td class="ui-table-cell"><strong>后台服务</strong></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e9dfcd"><span class="ui-text size-sm">维护入口信息</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e9dfcd"><span class="ui-text size-sm">更新分类信息</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e9dfcd"><span class="ui-text size-sm">维护节点配置</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e9dfcd"><span class="ui-text size-sm">分配协助任务</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e9dfcd"><span class="ui-text size-sm">收集服务反馈</span></div></td>
+          
+        </tr>
+        
+      
+        <tr class="ui-table-row">
+          <td class="ui-table-cell"><strong>支持系统</strong></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e6e1da"><span class="ui-text size-sm">店铺信息库</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e6e1da"><span class="ui-text size-sm">商品分类规则</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e6e1da"><span class="ui-text size-sm">空间配置模型</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e6e1da"><span class="ui-text size-sm">人员响应规则</span></div></td>
+          
+            <td class="ui-table-cell"><div class="ui-box" style="background:#e6e1da"><span class="ui-text size-sm">评价与改进</span></div></td>
+          
+        </tr>
+        
+      
+    </table>
+  </div></div>
+</div>
+</div>
+<p>服务蓝图中最重要的部分不是上方的实体触点，而是下方的后台服务和支持系统。</p>
+<p>例如，当顾客在 Information Point 请求帮助时，需要进一步定义：</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>设计问题</th>
+<th>拟定服务规则</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>谁接收请求？</td>
+<td>当前负责相应区域的员工</td>
+</tr>
+<tr class="even">
+<td>员工需要知道什么？</td>
+<td>顾客位置、需求类别、任务内容</td>
+</tr>
+<tr class="odd">
+<td>员工如何提供服务？</td>
+<td>就近响应或引导至适当位置</td>
+</tr>
+<tr class="even">
+<td>员工忙碌时怎么办？</td>
+<td>告知等待状态或提供替代方式</td>
+</tr>
+<tr class="odd">
+<td>服务如何结束？</td>
+<td>确认问题是否解决，恢复自主购物</td>
+</tr>
+</tbody>
+</table>
+</div><p>这部分可以通过员工角色扮演和模拟后台实现，硕士阶段不需要开发完整的商业运营系统。</p>
+<hr>
+</section>
+<section id="chapter-09" class="level2">
+<h2><span class="chapter-number">09</span>Modular Product System｜实体模块系统</h2>
+<p>四种服务节点不需要分别从零开始设计，而是采用统一的结构和功能组件进行组合。</p>
+<div class="widget"><div class="ui-card">
+  <strong class="ui-title size-lg">Kit of Parts — 模块构成系统</strong>
+  <svg role="img" aria-label="设计示意图" viewbox="0 0 340 300" width="100%">
+    <defs>
+      <lineargradient id="wood" x1="0" x2="1"><stop offset="0" stop-color="#c5ab84"></stop><stop offset="1" stop-color="#e0cbb0"></stop></lineargradient>
+    </defs>
+    <rect x="3" y="3" width="334" height="294" rx="5" fill="#eae8e0"></rect>
+    <g stroke="#9a917e" stroke-width=".7">
+      <path d="M120 34 L192 20 L224 37 L152 51 Z" fill="#dce6d7"></path>
+      <path d="M120 34 L152 51 V99 L120 82 Z" fill="#b7c9b3"></path>
+      <path d="M152 51 L224 37 V85 L152 99 Z" fill="#d3dfce"></path>
+      <rect x="165" y="54" width="42" height="28" rx="2" fill="#49685a"></rect>
+      <path d="M173 61 h26 M173 67 h21 M173 73 h26" stroke="#e0eadb" stroke-width="1.5"></path>
+      <path d="M120 124 L192 110 L224 127 L152 141 Z" fill="#f3f0e5"></path>
+      <path d="M120 124 L152 141 V151 L120 134 Z" fill="#c4bba7"></path>
+      <path d="M152 141 L224 127 V137 L152 151 Z" fill="#d6cdbb"></path>
+      <path d="M120 170 L192 156 L224 173 L152 187 Z" fill="#e4d2b6"></path>
+      <path d="M120 170 L152 187 V241 L120 224 Z" fill="#b69a76"></path>
+      <path d="M152 187 L224 173 V227 L152 241 Z" fill="url(#wood)"></path>
+      <path d="M120 257 L192 243 L224 260 L152 274 Z" fill="#a9b0a3"></path>
+      <path d="M120 257 L152 274 V281 L120 264 Z" fill="#818c7e"></path>
+      <path d="M152 274 L224 260 V267 L152 281 Z" fill="#919c8e"></path>
+      <circle cx="144" cy="281" r="5" fill="#59615a"></circle>
+      <circle cx="208" cy="269" r="5" fill="#59615a"></circle>
+    </g>
+    <path d="M172 99 V110 M172 151 V156 M172 241 V243" stroke="#778575" stroke-dasharray="3 3"></path>
+    
+      <path d="M224 66 H242" stroke="#818778"></path>
+      <text x="248" y="61" font-size="10" font-weight="bold" fill="#415648">M01</text>
+      <text x="248" y="75" font-size="9" fill="#505c51">信息交互模块</text>
+    
+      <path d="M224 130 H242" stroke="#818778"></path>
+      <text x="248" y="125" font-size="10" font-weight="bold" fill="#415648">M02</text>
+      <text x="248" y="139" font-size="9" fill="#505c51">操作台面模块</text>
+    
+      <path d="M224 201 H242" stroke="#818778"></path>
+      <text x="248" y="196" font-size="10" font-weight="bold" fill="#415648">M03</text>
+      <text x="248" y="210" font-size="9" fill="#505c51">基础结构模块</text>
+    
+      <path d="M224 264 H242" stroke="#818778"></path>
+      <text x="248" y="259" font-size="10" font-weight="bold" fill="#415648">M04</text>
+      <text x="248" y="273" font-size="9" fill="#505c51">移动底座模块</text>
+    
+    <text x="14" y="32" font-size="11" font-weight="bold" fill="#3f5547">RE:POINT</text>
+    <text x="14" y="47" font-size="8" fill="#647166">EXPLODED VIEW</text>
+  </svg>
+  <small class="ui-caption">原创模块结构概念图，尚未进行工程结构和人体工学验证。</small>
+</div>
+</div>
+<section id="模块组合矩阵" class="level3">
+<h3>模块组合矩阵</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>标准组件</th>
+<th style="text-align: center;">W 入口</th>
+<th style="text-align: center;">I 信息</th>
+<th style="text-align: center;">A 协助</th>
+<th style="text-align: center;">S 出售</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>基础结构</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+</tr>
+<tr class="even">
+<td>信息显示</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">○</td>
+<td style="text-align: center;">●</td>
+</tr>
+<tr class="odd">
+<td>交互界面</td>
+<td style="text-align: center;">○</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">○</td>
+<td style="text-align: center;">○</td>
+</tr>
+<tr class="even">
+<td>操作台面</td>
+<td style="text-align: center;">○</td>
+<td style="text-align: center;">○</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+</tr>
+<tr class="odd">
+<td>储物组件</td>
+<td style="text-align: center;">○</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+</tr>
+<tr class="even">
+<td>移动底座</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">○</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="odd">
+<td>服务识别组件</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+<td style="text-align: center;">●</td>
+</tr>
+</tbody>
+</table>
+</div><caption>
+● 基础配置　○ 可选配置　— 非必要配置
+</caption>
+<p>实体模块设计需要考虑坐姿与站姿操作、轮椅接近空间、信息可读性、操作力度、稳定性和店内通行安全。具体尺寸应通过人体工学资料及实体原型测试确定。</p>
+<hr>
+</section>
+</section>
+<section id="chapter-10" class="level2">
+<h2><span class="chapter-number">10</span>Spatial Configuration｜三种店铺适配方案</h2>
+<p>这里可以直接利用你之前对9家店铺的分类研究，而不是重新按照面积划分。</p>
+<div class="widget"><div id="layouts"><div class="ui-card">
+  <div class="store-switch" role="group" aria-label="选择店铺类型"><button class="ui-button" type="button" aria-pressed="true" data-state='{"store":"A"}'>Type A</button><button class="ui-button" type="button" aria-pressed="false" data-state='{"store":"B"}'>Type B</button><button class="ui-button" type="button" aria-pressed="false" data-state='{"store":"C"}'>Type C</button></div>
+  <div class="ui-row">
+    <strong class="ui-title size-lg">单层衣物店</strong>
+    
+    <small class="ui-caption">2个示意节点</small>
+  </div>
+  <svg role="img" aria-label="设计示意图" viewbox="0 0 320 250" width="100%">
+    <rect x="0" y="0" width="320" height="250" rx="5" fill="#eeece5"></rect>
+    
+      <rect x="10" y="10" width="300" height="225" fill="#f8f6f0" stroke="#8e9488" stroke-width="1.5"></rect>
+      <rect x="25" y="230" width="40" height="8" fill="#eeece5"></rect>
+      <path d="M45 213 H92 V120 H250 V45" stroke="#6d957c" stroke-dasharray="4 3" fill="none" stroke-width="1.7"></path>
+    
+    
+      <rect x="40" y="40" width="38" height="65" rx="2" fill="#d7cbb8" stroke="#b5aa96"></rect>
+      <path d="M45 45 H73 V100 H45 Z" stroke="#b5aa96" fill="none"></path>
+    
+      <rect x="105" y="40" width="38" height="65" rx="2" fill="#d7cbb8" stroke="#b5aa96"></rect>
+      <path d="M110 45 H138 V100 H110 Z" stroke="#b5aa96" fill="none"></path>
+    
+      <rect x="170" y="40" width="38" height="65" rx="2" fill="#d7cbb8" stroke="#b5aa96"></rect>
+      <path d="M175 45 H203 V100 H175 Z" stroke="#b5aa96" fill="none"></path>
+    
+      <rect x="40" y="135" width="38" height="48" rx="2" fill="#d7cbb8" stroke="#b5aa96"></rect>
+      <path d="M45 140 H73 V178 H45 Z" stroke="#b5aa96" fill="none"></path>
+    
+      <rect x="105" y="135" width="38" height="48" rx="2" fill="#d7cbb8" stroke="#b5aa96"></rect>
+      <path d="M110 140 H138 V178 H110 Z" stroke="#b5aa96" fill="none"></path>
+    
+      <rect x="170" y="135" width="38" height="48" rx="2" fill="#d7cbb8" stroke="#b5aa96"></rect>
+      <path d="M175 140 H203 V178 H175 Z" stroke="#b5aa96" fill="none"></path>
+    
+    
+      <circle cx="45" cy="213" r="13" fill="#4f795e" stroke="white" stroke-width="2"></circle>
+      <text x="45" y="217" font-size="12" fill="white" text-anchor="middle" font-weight="bold">W</text>
+    
+      <circle cx="250" cy="45" r="13" fill="#486d82" stroke="white" stroke-width="2"></circle>
+      <text x="250" y="49" font-size="12" fill="white" text-anchor="middle" font-weight="bold">A</text>
+    
+    <text x="45" y="246" font-size="9" fill="#526154" text-anchor="middle">ENTRANCE</text>
+  </svg>
+  <span class="ui-text">将入口信息和人工协助尽量整合，降低空间占用。</span>
+  <div class="ui-grid" style="--cols:2">
+    
+      <div class="ui-grid-item"><div class="ui-row"><div class="ui-box size-10px" style="background:#4f795e"><small class="ui-caption">W 入口节点</small></div></div>
+    
+      <div class="ui-grid-item"><div class="ui-row"><div class="ui-box size-10px" style="background:#729d83"><small class="ui-caption">I 信息节点</small></div></div>
+    
+      <div class="ui-grid-item"><div class="ui-row"><div class="ui-box size-10px" style="background:#486d82"><small class="ui-caption">A 协助节点</small></div></div>
+    
+      <div class="ui-grid-item"><div class="ui-row"><div class="ui-box size-10px" style="background:#b5955d"><small class="ui-caption">S 出售节点</small></div></div>
+    
+  </div>
+</div>
+</div></div>
+<section id="店铺配置规则" class="level3">
+<h3>店铺配置规则</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>配置变量</th>
+<th>设计响应</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>商品分类复杂程度</td>
+<td>调整信息模块的内容和层级</td>
+</tr>
+<tr class="even">
+<td>空间决策点数量</td>
+<td>调整信息节点的位置及数量</td>
+</tr>
+<tr class="odd">
+<td>楼层数量</td>
+<td>增加跨楼层连续支持</td>
+</tr>
+<tr class="even">
+<td>员工可用程度</td>
+<td>调整人工服务节点及响应方式</td>
+</tr>
+<tr class="odd">
+<td>可用空间</td>
+<td>选择独立式、整合式或移动式节点</td>
+</tr>
+<tr class="even">
+<td>顾客任务类型</td>
+<td>配置对应的服务功能模块</td>
+</tr>
+</tbody>
+</table>
+</div><p>上述平面是示意模型。正式研究中应当使用实际调查店铺的平面信息，并建立具有研究依据的配置规则，而不是主观决定每家店需要几个节点。</p>
+<hr>
+</section>
+
+<section id="prototyping-strategy原型制作计划" class="level2">
+<h2>11. Prototyping Strategy｜原型制作计划</h2>
+<p>我建议最终制作三个层级的原型。这部分才是你真正需要投入设计和制作的内容。</p>
+<div class="widget"><div class="ui-box">
+  <div class="references"><figure><img loading="lazy" decoding="async" src="https://cdn.sanity.io/images/5azy6oei/production/a575908bb705971d73d5b95e229f0aea15829bcd-3820x2891.jpg?auto=format&amp;q=80&amp;w=2500" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://cdn.sanity.io/images/5azy6oei/production/a575908bb705971d73d5b95e229f0aea15829bcd-3820x2891.jpg?auto=format&amp;q=80&amp;w=2500" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+  <strong>Prototype 01 — Spatial Configuration Model</strong>
+
+  空间配置原型，建议采用1:50比例。
+
+  制作三种店铺的可重组空间模型，包括货架、柜台、楼梯和四种可移动的服务节点模型。用于研究节点的位置、组合及覆盖范围。
+
+  <small class="ui-caption">软件：Rhino / SketchUp / Illustrator　制作：激光切割、3D打印</small>
+  <hr>
+  <div class="references"><figure><img loading="lazy" decoding="async" src="https://images.squarespace-cdn.com/content/v1/543457bfe4b0f1993883676c/1660633080549-YIROTUXYHZPNW848KLYW/Image%2Bcarrousell%2B-%2Bprototyping%2Binterface.png?format=1500w" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://images.squarespace-cdn.com/content/v1/543457bfe4b0f1993883676c/1660633080549-YIROTUXYHZPNW848KLYW/Image%2Bcarrousell%2B-%2Bprototyping%2Binterface.png?format=1500w" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://images.ladepeche.fr/api/v1/images/view/6973831b80fd53a517099c80/hd/image.jpg?v=1" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://images.ladepeche.fr/api/v1/images/view/6973831b80fd53a517099c80/hd/image.jpg?v=1" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure></div>
+  <strong>Prototype 02 — Full-scale Interactive Prototype</strong>
+
+  1:1实体交互原型。
+
+  重点制作 Information Point，包括模块化外壳、显示界面、操作区域及协助请求功能。
+
+  Welcome Point 可以使用低保真实体模型，Assistance Point 则可以通过现有家具及员工角色扮演实现。
+
+  <small class="ui-caption">软件：Rhino / Figma　制作：木工、纸板、触摸屏</small>
+  <hr>
+  <div class="references"><figure><img loading="lazy" decoding="async" src="https://images.squarespace-cdn.com/content/v1/5df2caadc732c425448d000a/1576276716517-53EJLBNU1B3OQPME6JIM/side%2Bsidestep%2Balteration.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://images.squarespace-cdn.com/content/v1/5df2caadc732c425448d000a/1576276716517-53EJLBNU1B3OQPME6JIM/side%2Bsidestep%2Balteration.jpg" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://www.cjolivenetworks.co.kr/file/upload/image/524dfaf7-ca67-4f92-954a-a14e36478b01" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.cjolivenetworks.co.kr/file/upload/image/524dfaf7-ca67-4f92-954a-a14e36478b01" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure></div>
+  <strong>Prototype 03 — Service Experience Prototype</strong>
+
+  完整服务体验原型。
+
+  在学校搭建局部模拟店铺环境，设置入口、商品货架、信息服务节点和员工协助区域。参与者可以真实地进入空间、移动、操作设备、提出需求及完成任务。
+
+  <small class="ui-caption">方法：Experience Prototyping / Bodystorming / Wizard of Oz</small>
+</div>
+</div>
+<section id="原型之间的关系" class="level3">
+<h3>原型之间的关系</h3>
+<div class="widget"><div class="ui-box">
+  <div class="ui-box">
+    <strong>1:50 空间模型</strong>
+
+    <small class="ui-caption">验证服务节点应该在哪里</small>
+  </div>
+  <div class="ui-box"></div>
+  <div class="ui-box">
+    <strong>1:1 交互设施</strong>
+
+    <small class="ui-caption">验证顾客如何使用服务节点</small>
+  </div>
+  <div class="ui-box"></div>
+  <div class="ui-box">
+    <strong>完整服务体验模拟</strong>
+
+    <small class="ui-caption">验证不同触点及人员如何协作</small>
+  </div>
+  <div class="ui-box"></div>
+  <div class="ui-box">
+    <strong>Service Evaluation</strong>
+
+    <small class="ui-caption">根据实验结果迭代服务系统</small>
+  </div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="evaluation-design学术验证方案" class="level2">
+<h2>12. Evaluation Design｜学术验证方案</h2>
+<p>为了避免研究范围过大，不建议同时验证四种服务节点、三种店铺及所有服务任务。</p>
+<p>建议选择单层综合店作为代表性空间，以寻找指定商品为核心实验任务。</p>
+<section id="研究问题" class="level3">
+<h3>研究问题</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>RQ</th>
+<th>研究问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ1</td>
+<td>老年顾客在完成店内购物任务时，需要在哪些阶段获得何种信息支持？</td>
+</tr>
+<tr class="even">
+<td>RQ2</td>
+<td>如何将不同的信息需求转化为分布式、自适应的服务节点？</td>
+</tr>
+<tr class="odd">
+<td>RQ3</td>
+<td>新服务系统能否改善老年顾客的信息理解及任务完成体验？</td>
+</tr>
+</tbody>
+</table>
+</div></section>
+<section id="实验条件" class="level3">
+<h3>实验条件</h3>
+<div class="widget"><div class="ui-grid" style="--cols:2">
+  <div class="ui-grid-item">
+    <div class="ui-box">
+      <small class="ui-caption">CONDITION A</small>
+      <strong>现有服务模式</strong>
+      <svg role="img" aria-label="设计示意图" viewbox="0 0 150 135" width="100%">
+        <rect x="4" y="4" width="142" height="125" rx="4" fill="#e8e6df" stroke="#aaa"></rect>
+        
+          <rect x="20" y="20" width="23" height="60" fill="#c1b9aa"></rect>
+        
+          <rect x="60" y="20" width="23" height="60" fill="#c1b9aa"></rect>
+        
+          <rect x="100" y="20" width="23" height="60" fill="#c1b9aa"></rect>
+        
+        <rect x="105" y="99" width="32" height="21" fill="#7f8880"></rect>
+        <path d="M20 119 V92 H88 V10 H48 V90 H121 V99" fill="none" stroke="#bd8269" stroke-dasharray="3 3" stroke-width="2"></path>
+      </svg>
+      <span class="ui-text size-sm">现有标识、商品分类信息、常规人工服务。</span>
+    </div>
+  </div>
+  <div class="ui-grid-item">
+    <div class="ui-box">
+      <small class="ui-caption">CONDITION B</small>
+      <strong>RE:POINT 服务模式</strong>
+      <svg role="img" aria-label="设计示意图" viewbox="0 0 150 135" width="100%">
+        <rect x="4" y="4" width="142" height="125" rx="4" fill="#e8e6df" stroke="#aaa"></rect>
+        
+          <rect x="20" y="20" width="23" height="60" fill="#c1b9aa"></rect>
+        
+          <rect x="60" y="20" width="23" height="60" fill="#c1b9aa"></rect>
+        
+          <rect x="100" y="20" width="23" height="60" fill="#c1b9aa"></rect>
+        
+        <rect x="105" y="99" width="32" height="21" fill="#7f8880"></rect>
+        <path d="M20 119 V92 H88 V10" fill="none" stroke="#5b8a6b" stroke-dasharray="3 3" stroke-width="2"></path>
+        
+          <circle cx="20" cy="109" r="9" fill="#5b8a6b"></circle>
+          <text x="20" y="112" font-size="9" fill="white" text-anchor="middle">W</text>
+        
+          <circle cx="88" cy="45" r="9" fill="#5b8a6b"></circle>
+          <text x="88" y="48" font-size="9" fill="white" text-anchor="middle">I</text>
+        
+          <circle cx="121" cy="99" r="9" fill="#5b8a6b"></circle>
+          <text x="121" y="102" font-size="9" fill="white" text-anchor="middle">A</text>
+        
+      </svg>
+      <span class="ui-text size-sm">分布式信息支持、分层引导、按需人工协助。</span>
+    </div>
+  </div>
+</div>
+</div>
+<p>采用相同空间环境、等难度任务和统一的员工响应规则。若采用被试内实验，应平衡两种条件的体验顺序，降低学习效应。</p>
+</section>
+<section id="评价指标" class="level3">
+<h3>评价指标</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>评价维度</th>
+<th>测量方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>信息理解</td>
+<td>信息理解测试正确率</td>
+</tr>
+<tr class="even">
+<td>任务完成</td>
+<td>任务成功率</td>
+</tr>
+<tr class="odd">
+<td>行动效率</td>
+<td>完成时间、错误转向次数</td>
+</tr>
+<tr class="even">
+<td>信息获取</td>
+<td>重复查询次数</td>
+</tr>
+<tr class="odd">
+<td>服务可达性</td>
+<td>获取有效帮助所需时间</td>
+</tr>
+<tr class="even">
+<td>自主性</td>
+<td>独立完成任务的情况</td>
+</tr>
+<tr class="odd">
+<td>行动信心</td>
+<td>Likert量表</td>
+</tr>
+<tr class="even">
+<td>服务体验</td>
+<td>实验后问卷与访谈</td>
+</tr>
+<tr class="odd">
+<td>员工负荷</td>
+<td>协助时间及响应次数，作为探索性指标</td>
+</tr>
+</tbody>
+</table>
+</div><p>实验结果需要结合定量数据和行为观察进行分析，而不是只询问参与者是否喜欢设计方案。</p>
+<hr>
+</section>
+</section>
+<section id="implementation-toolkit服务实施工具包" class="level2">
+<h2>13. Implementation Toolkit｜服务实施工具包</h2>
+<div class="widget"><div class="references"><figure><img loading="lazy" decoding="async" src="https://www.takram.com/_next/image?q=75&amp;url=https%3A%2F%2Fimages.prismic.io%2Ftakram%2FaIMYHVGsbswqTPQP_project_serendie-design-process_03.png%3Fauto%3Dformat%2Ccompress&amp;w=3840" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.takram.com/_next/image?q=75&amp;url=https%3A%2F%2Fimages.prismic.io%2Ftakram%2FaIMYHVGsbswqTPQP_project_serendie-design-process_03.png%3Fauto%3Dformat%2Ccompress&amp;w=3840" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://media.licdn.com/dms/image/v2/D4D22AQFwr2Mz6Wqadw/feedshare-shrink_1280/B4DZU5qVJlG8As-/0/1740429153475?e=2147483647&amp;t=DNRG4pXM-3x1n27mkAcLa1k8HF3sut5EnDOK7TOpH14&amp;v=beta" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://media.licdn.com/dms/image/v2/D4D22AQFwr2Mz6Wqadw/feedshare-shrink_1280/B4DZU5qVJlG8As-/0/1740429153475?e=2147483647&amp;t=DNRG4pXM-3x1n27mkAcLa1k8HF3sut5EnDOK7TOpH14&amp;v=beta" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://yump.yale.edu/sites/default/files/img_4241.jpeg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://yump.yale.edu/sites/default/files/img_4241.jpeg" target="_blank" rel="noopener noreferrer">参考图片 3 ↗</a></figcaption></figure></div></div>
+<p>最终将研究成果整理成一本暂定40–60页的实施指南。</p>
+<div class="widget"><div class="ui-box">
+  <div class="ui-box" style="background:#304d3e">
+    <small class="ui-caption" style="color:#b9cbb9">DESIGN &amp; IMPLEMENTATION TOOLKIT</small>
+    <strong class="ui-title size-2xl" style="color:#ffffff">RE:POINT</strong>
+    <span class="ui-text" style="color:#d9e6d8">Adaptive Distributed Service System</span>
+    <svg role="img" aria-label="设计示意图" viewbox="0 0 300 90" width="100%">
+      <path d="M25 45 H275 M100 45 L150 10 L200 45 L150 80 Z" stroke="#c5d9c3" stroke-width="1.3" fill="none"></path>
+      
+        <circle cx="25" cy="45" r="7" fill="#c5d9c3"></circle>
+      
+        <circle cx="100" cy="45" r="7" fill="#c5d9c3"></circle>
+      
+        <circle cx="150" cy="10" r="7" fill="#c5d9c3"></circle>
+      
+        <circle cx="150" cy="80" r="7" fill="#c5d9c3"></circle>
+      
+        <circle cx="200" cy="45" r="7" fill="#c5d9c3"></circle>
+      
+        <circle cx="275" cy="45" r="7" fill="#c5d9c3"></circle>
+      
+    </svg>
+    <small class="ui-caption" style="color:#c9d9c9">Inclusive Retail Service Design — Concept Edition</small>
+  </div>
+  <strong class="ui-title size-md">Contents｜目录</strong>
+  
+    <div class="ui-row">
+      <small class="ui-caption">01</small>
+      <div class="ui-box">
+        <strong>Research Foundation</strong>
+        <small class="ui-caption">研究背景与设计依据</small>
+      </div>
+      <small class="ui-caption">04</small>
+    </div>
+    <hr>
+  
+    <div class="ui-row">
+      <small class="ui-caption">02</small>
+      <div class="ui-box">
+        <strong>Service Principles</strong>
+        <small class="ui-caption">服务设计原则</small>
+      </div>
+      <small class="ui-caption">10</small>
+    </div>
+    <hr>
+  
+    <div class="ui-row">
+      <small class="ui-caption">03</small>
+      <div class="ui-box">
+        <strong>Service Architecture</strong>
+        <small class="ui-caption">服务系统架构</small>
+      </div>
+      <small class="ui-caption">14</small>
+    </div>
+    <hr>
+  
+    <div class="ui-row">
+      <small class="ui-caption">04</small>
+      <div class="ui-box">
+        <strong>Modular Touchpoints</strong>
+        <small class="ui-caption">模块化触点设计</small>
+      </div>
+      <small class="ui-caption">20</small>
+    </div>
+    <hr>
+  
+    <div class="ui-row">
+      <small class="ui-caption">05</small>
+      <div class="ui-box">
+        <strong>Interaction Guidelines</strong>
+        <small class="ui-caption">信息与交互设计规范</small>
+      </div>
+      <small class="ui-caption">28</small>
+    </div>
+    <hr>
+  
+    <div class="ui-row">
+      <small class="ui-caption">06</small>
+      <div class="ui-box">
+        <strong>Staff Service Protocol</strong>
+        <small class="ui-caption">人员服务操作规则</small>
+      </div>
+      <small class="ui-caption">34</small>
+    </div>
+    <hr>
+  
+    <div class="ui-row">
+      <small class="ui-caption">07</small>
+      <div class="ui-box">
+        <strong>Spatial Configuration</strong>
+        <small class="ui-caption">三种店铺配置方法</small>
+      </div>
+      <small class="ui-caption">38</small>
+    </div>
+    <hr>
+  
+    <div class="ui-row">
+      <small class="ui-caption">08</small>
+      <div class="ui-box">
+        <strong>Evaluation &amp; Iteration</strong>
+        <small class="ui-caption">评价与设计迭代</small>
+      </div>
+      <small class="ui-caption">46</small>
+    </div>
+    
+  
+</div>
+</div>
+<p>这本手册不是单纯的作品集，而是其他店铺在采用该服务系统时，可以参考的设计与实施方法。</p>
+<hr>
+</section>
+<section id="final-deliverables最终毕业设计成果" class="level2">
+<h2>14. Final Deliverables｜最终毕业设计成果</h2>
+<div class="widget"><div class="ui-grid" style="--cols:2">
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://images.ctfassets.net/cvoflf8wnkzm/3E5zJjApGWOhY1LaeuBWwi/9eae3488b1251fd3a0a5fc3f834004f5/Image_module8.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://images.ctfassets.net/cvoflf8wnkzm/3E5zJjApGWOhY1LaeuBWwi/9eae3488b1251fd3a0a5fc3f834004f5/Image_module8.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>01. 服务系统设计</strong>
+
+    <small class="ui-caption">服务架构、服务机制、服务蓝图</small>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/d731aa63740711.5abab11a09cb9.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/d731aa63740711.5abab11a09cb9.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>02. 系列化产品设计</strong>
+
+    <small class="ui-caption">四类服务节点及标准组件</small>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif/v1/fit/w_280%2Ch_198%2Cq_90%2Cenc_avif%2Cquality_auto/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://static.wixstatic.com/media/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif/v1/fit/w_280%2Ch_198%2Cq_90%2Cenc_avif%2Cquality_auto/aa97a0_12f1f76442374261bb1e737883ee0ff4~mv2.gif" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>03. 交互界面设计</strong>
+
+    <small class="ui-caption">可操作的高保真交互原型</small>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://www3.osaka-c.ed.jp/kogei-t/f57846d7965f421.jpeg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www3.osaka-c.ed.jp/kogei-t/f57846d7965f421.jpeg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>04. 空间配置模型</strong>
+
+    <small class="ui-caption">三种店铺的1:50模型</small>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://www.scsl.si/files/2021/01/izdelki_lesna_jan2021_20qrf.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.scsl.si/files/2021/01/izdelki_lesna_jan2021_20qrf.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>05. 实体功能原型</strong>
+
+    <small class="ui-caption">一个重点节点的1:1实体模型</small>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://img.khan.co.kr/news/2023/09/21/2023092201000699700073791.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://img.khan.co.kr/news/2023/09/21/2023092201000699700073791.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>06. 服务体验验证</strong>
+
+    <small class="ui-caption">行为观察、对照实验及评价报告</small>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://www.sunnymaker.com.tw/work/environmental-protection-education-center-design-guidebook/img/environmental-protection-education-center-design-guidebook-7.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.sunnymaker.com.tw/work/environmental-protection-education-center-design-guidebook/img/environmental-protection-education-center-design-guidebook-7.jpg" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>07. 服务实施工具包</strong>
+
+    <small class="ui-caption">设计原则、配置规则及操作规范</small>
+  </div>
+  <div class="ui-grid-item">
+    <div class="references"><figure><img loading="lazy" decoding="async" src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/d03d5811135937.5602a173e958b.png" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/d03d5811135937.5602a173e958b.png" target="_blank" rel="noopener noreferrer">参考图片 ↗</a></figcaption></figure></div>
+    <strong>08. 服务情境视频</strong>
+
+    <small class="ui-caption">2–3分钟完整服务体验演示</small>
+  </div>
+</div>
+
+</div>
+</section>
+<section id="graduation-exhibition毕业展展示规划" class="level2">
+<h2>15. Graduation Exhibition｜毕业展展示规划</h2>
+<div class="widget"><div class="references"><figure><img loading="lazy" decoding="async" src="https://www.nua.ac.jp/info/files/images/DS309654.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://www.nua.ac.jp/info/files/images/DS309654.jpg" target="_blank" rel="noopener noreferrer">参考图片 1 ↗</a></figcaption></figure><figure><img loading="lazy" decoding="async" src="https://adminprattshows.pratt.edu/pratt-shows-2021/wp-content/uploads/sites/5/2021/05/BFA_Zhang_Tongtong_Pratt-Show-2021-copy.jpg" alt="" referrerpolicy="no-referrer"><figcaption><a href="https://adminprattshows.pratt.edu/pratt-shows-2021/wp-content/uploads/sites/5/2021/05/BFA_Zhang_Tongtong_Pratt-Show-2021-copy.jpg" target="_blank" rel="noopener noreferrer">参考图片 2 ↗</a></figcaption></figure></div></div>
+<div class="widget"><div class="ui-box">
+  <svg role="img" aria-label="设计示意图" viewbox="0 0 350 300" width="100%">
+    <rect width="350" height="300" rx="5" fill="#e9e7df"></rect>
+    <path d="M10 15 H340 V198 H10 Z" fill="#f9f8f2" stroke="#c5c5ba"></path>
+    <path d="M10 198 H340 L350 300 H0 Z" fill="#d8d2c3"></path>
+    <text x="24" y="38" font-size="21" font-weight="bold" fill="#345441">RE:POINT</text>
+    <text x="24" y="50" font-size="7" fill="#64756a">ADAPTIVE DISTRIBUTED SERVICE SYSTEM</text>
+    
+      <rect x="24" y="60" width="90" height="70" fill="white" stroke="#d2d3c8"></rect>
+      <text x="30" y="70" font-size="7" fill="#3d5c48">RESEARCH</text>
+      
+        <rect x="31" y="80" width="22" height="20" fill="#c5d6c3"></rect>
+      
+        <rect x="57" y="80" width="22" height="23" fill="#c5d6c3"></rect>
+      
+        <rect x="83" y="80" width="22" height="26" fill="#c5d6c3"></rect>
+      
+      <path d="M31 118 h76" stroke="#a7b0a4"></path>
+    
+      <rect x="122" y="60" width="96" height="70" fill="white" stroke="#d2d3c8"></rect>
+      <text x="128" y="70" font-size="7" fill="#3d5c48">SERVICE SYSTEM</text>
+      
+        <rect x="129" y="80" width="22" height="20" fill="#d8cbb3"></rect>
+      
+        <rect x="155" y="80" width="22" height="23" fill="#d8cbb3"></rect>
+      
+        <rect x="181" y="80" width="22" height="26" fill="#d8cbb3"></rect>
+      
+      <path d="M129 118 h82" stroke="#a7b0a4"></path>
+    
+      <rect x="226" y="60" width="100" height="70" fill="white" stroke="#d2d3c8"></rect>
+      <text x="232" y="70" font-size="7" fill="#3d5c48">TOUCHPOINTS</text>
+      
+        <rect x="233" y="80" width="22" height="20" fill="#b7cbd3"></rect>
+      
+        <rect x="259" y="80" width="22" height="23" fill="#b7cbd3"></rect>
+      
+        <rect x="285" y="80" width="22" height="26" fill="#b7cbd3"></rect>
+      
+      <path d="M233 118 h86" stroke="#a7b0a4"></path>
+    
+    <rect x="24" y="138" width="194" height="48" fill="white" stroke="#d2d3c8"></rect>
+    <text x="30" y="149" font-size="7" fill="#3d5c48">SERVICE BLUEPRINT</text>
+    
+      
+        <rect x="32" y="156" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="67" y="156" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="102" y="156" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="137" y="156" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="172" y="156" width="28" height="5" fill="#c5d6c3"></rect>
+      
+    
+      
+        <rect x="32" y="164" width="28" height="5" fill="#e0d4bc"></rect>
+      
+        <rect x="67" y="164" width="28" height="5" fill="#e0d4bc"></rect>
+      
+        <rect x="102" y="164" width="28" height="5" fill="#e0d4bc"></rect>
+      
+        <rect x="137" y="164" width="28" height="5" fill="#e0d4bc"></rect>
+      
+        <rect x="172" y="164" width="28" height="5" fill="#e0d4bc"></rect>
+      
+    
+      
+        <rect x="32" y="172" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="67" y="172" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="102" y="172" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="137" y="172" width="28" height="5" fill="#c5d6c3"></rect>
+      
+        <rect x="172" y="172" width="28" height="5" fill="#c5d6c3"></rect>
+      
+    
+    <rect x="226" y="138" width="100" height="48" fill="#354f42"></rect>
+    <rect x="232" y="144" width="88" height="36" fill="#d1ded0"></rect>
+    <circle cx="276" cy="162" r="9" fill="#3c6651"></circle>
+    <path d="M273 157 L280 162 L273 167 Z" fill="white"></path>
+    <path d="M23 208 H202 L215 235 H10 Z" fill="#b7a68d"></path>
+    <rect x="10" y="235" width="205" height="7" fill="#9c8c75"></rect>
+    <path d="M18 242 V290 H24 V242 M202 242 V290 H208 V242" fill="#9c8c75"></path>
+    
+      <path d="M25 211 l42 -8 13 9 -42 8 Z" fill="#f4f2e9" stroke="#b9b7a9"></path>
+      
+        <path d="M31 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+        <path d="M42 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+        <path d="M53 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+      <circle cx="61" cy="210" r="3" fill="#4c7c5d"></circle>
+    
+      <path d="M83 211 l42 -8 13 9 -42 8 Z" fill="#f4f2e9" stroke="#b9b7a9"></path>
+      
+        <path d="M89 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+        <path d="M100 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+        <path d="M111 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+      <circle cx="119" cy="210" r="3" fill="#4c7c5d"></circle>
+    
+      <path d="M141 211 l42 -8 13 9 -42 8 Z" fill="#f4f2e9" stroke="#b9b7a9"></path>
+      
+        <path d="M147 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+        <path d="M158 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+        <path d="M169 210 l7 -2 v-9 l-7 2 Z" fill="#c4b59b" stroke="#a89b85" stroke-width=".5"></path>
+      
+      <circle cx="177" cy="210" r="3" fill="#4c7c5d"></circle>
+    
+    <path d="M245 190 L291 181 L321 196 L274 205 Z" fill="#d4c4aa"></path>
+    <path d="M245 190 L274 205 V278 L245 263 Z" fill="#b4a187"></path>
+    <path d="M274 205 L321 196 V269 L274 278 Z" fill="#cdbb9e"></path>
+    <path d="M256 131 L302 123 L310 129 L264 138 Z" fill="#b4c8b2"></path>
+    <path d="M256 131 L264 138 V190 L256 183 Z" fill="#93ac91"></path>
+    <path d="M264 138 L310 129 V181 L264 190 Z" fill="#c5d5c2"></path>
+    <path d="M270 144 L304 137 V172 L270 180 Z" fill="#405d4d"></path>
+    <path d="M275 150 L299 145 M275 156 L299 151 M275 162 L299 157" stroke="#dce7d8" stroke-width="2"></path>
+    <text x="290" y="230" font-size="7" fill="#3c5545" text-anchor="middle">RE:POINT</text>
+    <path d="M73 249 H151 L164 270 H86 Z" fill="#3b5c48"></path>
+    <text x="118" y="262" font-size="7" fill="white" text-anchor="middle">TOOLKIT</text>
+  </svg>
+  <small class="ui-caption">原创展陈布局：左侧为空间模型与实施手册，右侧为可实际操作的1:1服务设施，背景展墙呈现研究、服务系统和评价结果。</small>
+</div>
+</div>
+<hr>
+</section>
+<section id="development-roadmap研究与制作时间规划" class="level2">
+<h2>16. Development Roadmap｜研究与制作时间规划</h2>
+<p>结合你2027年2月中期汇报、7月修士答辩、9月毕业的时间安排，可以采用以下工作计划。</p>
+<div class="widget"><div class="ui-card">
+  <strong class="ui-title size-lg">Research &amp; Design Schedule</strong>
+  <small class="ui-caption">2026年12月 — 2027年9月</small>
+  <svg role="img" aria-label="设计示意图" viewbox="0 0 360 302" width="100%">
+    
+      <text x="124" y="14" font-size="9" fill="currentColor" text-anchor="middle">12月</text>
+      <path d="M112 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="147" y="14" font-size="9" fill="currentColor" text-anchor="middle">1月</text>
+      <path d="M135 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="170" y="14" font-size="9" fill="currentColor" text-anchor="middle">2月</text>
+      <path d="M158 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="193" y="14" font-size="9" fill="currentColor" text-anchor="middle">3月</text>
+      <path d="M181 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="216" y="14" font-size="9" fill="currentColor" text-anchor="middle">4月</text>
+      <path d="M204 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="239" y="14" font-size="9" fill="currentColor" text-anchor="middle">5月</text>
+      <path d="M227 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="262" y="14" font-size="9" fill="currentColor" text-anchor="middle">6月</text>
+      <path d="M250 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="285" y="14" font-size="9" fill="currentColor" text-anchor="middle">7月</text>
+      <path d="M273 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="308" y="14" font-size="9" fill="currentColor" text-anchor="middle">8月</text>
+      <path d="M296 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+      <text x="331" y="14" font-size="9" fill="currentColor" text-anchor="middle">9月</text>
+      <path d="M319 23 V294" stroke="currentColor" stroke-opacity=".09"></path>
+    
+    
+      <text x="3" y="40" font-size="9.5" fill="currentColor">研究数据整合</text>
+      <rect x="114" y="29" width="42" height="15" rx="3" fill="#819e8b"></rect>
+    
+      <text x="3" y="63" font-size="9.5" fill="currentColor">服务概念设计</text>
+      <rect x="114" y="52" width="65" height="15" rx="3" fill="#819e8b"></rect>
+    
+      <text x="3" y="86" font-size="9.5" fill="currentColor">中期汇报</text>
+      <rect x="160" y="75" width="19" height="15" rx="3" fill="#b49a66"></rect>
+    
+      <text x="3" y="109" font-size="9.5" fill="currentColor">服务蓝图与模块设计</text>
+      <rect x="160" y="98" width="42" height="15" rx="3" fill="#7797ae"></rect>
+    
+      <text x="3" y="132" font-size="9.5" fill="currentColor">空间模型制作</text>
+      <rect x="183" y="121" width="42" height="15" rx="3" fill="#7797ae"></rect>
+    
+      <text x="3" y="155" font-size="9.5" fill="currentColor">交互与实体原型</text>
+      <rect x="183" y="144" width="65" height="15" rx="3" fill="#7797ae"></rect>
+    
+      <text x="3" y="178" font-size="9.5" fill="currentColor">用户体验实验</text>
+      <rect x="206" y="167" width="42" height="15" rx="3" fill="#a38baa"></rect>
+    
+      <text x="3" y="201" font-size="9.5" fill="currentColor">数据分析与迭代</text>
+      <rect x="229" y="190" width="42" height="15" rx="3" fill="#a38baa"></rect>
+    
+      <text x="3" y="224" font-size="9.5" fill="currentColor">论文及实施工具包</text>
+      <rect x="229" y="213" width="65" height="15" rx="3" fill="#819e8b"></rect>
+    
+      <text x="3" y="247" font-size="9.5" fill="currentColor">修士答辩</text>
+      <rect x="275" y="236" width="19" height="15" rx="3" fill="#b49a66"></rect>
+    
+      <text x="3" y="270" font-size="9.5" fill="currentColor">成果修正与毕业</text>
+      <rect x="275" y="259" width="65" height="15" rx="3" fill="#819e8b"></rect>
+    
+  </svg>
+  <div class="ui-row">
+    
+      <div class="ui-row"><div class="ui-box size-9px" style="background:#819e8b"><small class="ui-caption">研究与成果</small></div>
+    
+      <div class="ui-row"><div class="ui-box size-9px" style="background:#7797ae"><small class="ui-caption">设计制作</small></div>
+    
+      <div class="ui-row"><div class="ui-box size-9px" style="background:#a38baa"><small class="ui-caption">实验评价</small></div>
+    
+      <div class="ui-row"><div class="ui-box size-9px" style="background:#b49a66"><small class="ui-caption">关键节点</small></div>
+    
+  </div>
+</div>
+</div>
+<p>正式用户实验必须在相应伦理审查获批后开展。如果新的实验内容超出原伦理申请范围，需要先确认是否需要变更或补充申请。</p>
+<hr>
+
+<section id="scope-control硕士研究范围控制" class="level2">
+<h2>17. Scope Control｜硕士研究范围控制</h2>
+<p>整套RE:POINT方案的完整度已经比较高，但如果全部实施，工作量很可能超过一个人的硕士研究范围。</p>
+<p>因此，我建议采用 <strong>Full System Design + Focused Prototype +
+Focused Evaluation</strong> 的策略。</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>
+<thead>
+<tr class="header">
+<th>层级</th>
+<th>研究范围</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>系统设计</td>
+<td>完整设计四种服务节点及协作机制</td>
+</tr>
+<tr class="even">
+<td>产品设计</td>
+<td>深入设计 Information Point</td>
+</tr>
+<tr class="odd">
+<td>实体制作</td>
+<td>一个高保真节点，其他节点低保真模拟</td>
+</tr>
+<tr class="even">
+<td>空间设计</td>
+<td>三种店铺的概念配置模型</td>
+</tr>
+<tr class="odd">
+<td>实验验证</td>
+<td>一种店铺、一项核心购物任务</td>
+</tr>
+<tr class="even">
+<td>延伸研究</td>
+<td>出售服务、跨楼层支持、复杂员工协作</td>
+</tr>
+</tbody>
+</table>
+</div><p>其中，Sell
+Point、移动员工服务机制以及实时进度反馈系统都可以作为系统延伸概念，不需要在硕士阶段全部实现。</p>
+</section>
+<section id="研究题目建议" class="level2">
+<h2>18. 研究题目建议</h2>
+<p>如果最终确定采用这套方案，可以考虑将研究题目从现有的信息设计方向进一步调整为服务设计方向。</p>
+<p><strong>English</strong></p>
+<p>Designing an Adaptive Distributed In-store Service Support System for
+Older Customers in Reuse Shops: A Case Study of 2nd STREET</p>
+<p><strong>日本語</strong></p>
+<p>リユースショップにおける高齢顧客のための適応型分散サービス支援システムのデザイン
+― セカンドストリートを事例として ―</p>
+<p><strong>中文</strong></p>
+<p>面向老年顾客的二手商店自适应分布式服务支持系统设计——以2nd
+STREET为例</p>
+<p>不过，在获得导师认可之前，可以保留现有研究题目，将 RE:POINT
+作为研究中的设计提案，而不是立即修改整个研究方向。</p>
+<hr>
+</section>
+<section id="与博士研究的衔接" class="level2">
+<h2>19. 与博士研究的衔接</h2>
+<p>这套方案还有一个比较明显的优势，就是可以与你已经规划的博士研究形成递进关系。</p>
+<div class="widget"><div class="ui-grid" style="--cols:2">
+  <div class="ui-grid-item">
+    <div class="ui-box">
+      <small class="ui-caption">MASTER'S RESEARCH</small>
+      <strong class="ui-title size-lg">RE:POINT</strong>
+      自适应分布式服务支持系统
+
+      <hr>
+      <span class="ui-text size-sm">信息需求、服务节点、空间配置、自主服务与人工协助。</span>
+      <svg role="img" aria-label="设计示意图" viewbox="0 0 140 75" width="100%">
+        
+          <path d="M70 37 L20 37" stroke="#7d9e88" stroke-width="1.5"></path>
+          <circle cx="20" cy="37" r="10" fill="#7d9e88"></circle>
+        
+          <path d="M70 37 L70 15" stroke="#7d9e88" stroke-width="1.5"></path>
+          <circle cx="70" cy="15" r="10" fill="#7d9e88"></circle>
+        
+          <path d="M70 37 L70 60" stroke="#7d9e88" stroke-width="1.5"></path>
+          <circle cx="70" cy="60" r="10" fill="#7d9e88"></circle>
+        
+          <path d="M70 37 L120 37" stroke="#7d9e88" stroke-width="1.5"></path>
+          <circle cx="120" cy="37" r="10" fill="#7d9e88"></circle>
+        
+        <circle cx="70" cy="37" r="13" fill="#456b54"></circle>
+      </svg>
+      <small class="ui-caption">建立实体服务支持网络</small>
+    </div>
+  </div>
+  <div class="ui-grid-item">
+    <div class="ui-box">
+      <small class="ui-caption">DOCTORAL RESEARCH</small>
+      <strong class="ui-title size-lg">AI-Assisted Handover</strong>
+      AI辅助服务交接机制
+
+      <hr>
+      <span class="ui-text size-sm">智能信息支持、需求识别、服务交接、信息连续性及员工负荷。</span>
+      <svg role="img" aria-label="设计示意图" viewbox="0 0 140 75" width="100%">
+        <circle cx="22" cy="37" r="14" fill="#7d9e88"></circle>
+        <circle cx="70" cy="37" r="17" fill="#7797ae"></circle>
+        <circle cx="118" cy="37" r="14" fill="#7d9e88"></circle>
+        <path d="M37 37 H52 M48 33 l4 4 -4 4 M88 37 H103 M99 33 l4 4 -4 4" stroke="#8b9990" fill="none" stroke-width="1.5"></path>
+        <text x="70" y="41" font-size="11" fill="white" font-weight="bold" text-anchor="middle">AI</text>
+      </svg>
+      <small class="ui-caption">深化服务节点之间的智能交接</small>
+    </div>
+  </div>
+</div>
+</div>
+<p>硕士阶段研究服务支持系统如何构成，博士阶段则进一步研究智能系统与人工服务之间如何实现有效交接。两者存在连续性，同时又具有不同的研究重点。</p>
+</section>
+<section id="总结" class="level2">
+<h2>总结</h2>
+<p>我认为 RE:POINT 最有潜力的地方，在于它能够同时体现四种设计能力：</p>
+<ul>
+<li><strong>Service Design：</strong> 服务模式与人员协作机制。</li>
+<li><strong>Spatial Design：</strong> 分布式服务节点及空间配置。</li>
+<li><strong>Product Design：</strong> 模块化实体服务设施。</li>
+<li><strong>Interaction Design：</strong> 信息交互及分层服务支持。</li>
+</ul>
+<p>但需要明确，目前这是一套完整的概念设计方案，并非已经验证的最终研究成果。服务节点的必要性、员工响应机制、实体尺寸及配置数量都需要进一步研究。</p>
+<p>尤其要避免为了体现设计成果的丰富程度，而强行增加服务设施。</p>
+<p><strong>最终你真正需要设计的不是四台机器，而是一套能够根据顾客需求和店铺条件灵活配置的服务系统。</strong>
+实体设施只是这套系统的物理表现，服务体验及其有效性才是硕士研究的核心贡献。</p>
+<hr>
+<p>If you want, I can:</p>
+<ul>
+<li>继续描述交互原型未完内容</li>
+<li>展开说明人员服务层细节</li>
+<li>阐述配置系统层的店铺调整方案</li>
+</ul>
+</section>
+
+</div></div></div></div></section></div></div></div></div></section></section>
+
+</main><footer class="deck-controls"><button type="button" id="previous">← 上一页</button><span id="page-count" aria-live="polite"></span><button type="button" id="next">下一页 →</button></footer></div><script>const views={"prototype":{"home":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-2xl\" style=\"color:#244e3c\">何をお探しですか？<\/strong>\n      <span class=\"ui-text\" style=\"color:#5b6b60\">您需要什么帮助？<\/span>\n      \n        <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;category&quot;}\" style=\"background:#e6ede4\">\n          <div class=\"ui-row\">\n            <span class=\"icon\" aria-hidden=\"true\">⌕<\/span>\n            <div class=\"ui-box\">\n              <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">商品を探す<\/strong>\n              <small class=\"ui-caption\">寻找商品<\/small>\n            <\/div>\n            <span class=\"icon\" aria-hidden=\"true\">›<\/span>\n          <\/div>\n        <\/button>\n      \n        <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;facility&quot;}\" style=\"background:#e6ede4\">\n          <div class=\"ui-row\">\n            <span class=\"icon\" aria-hidden=\"true\">⌖<\/span>\n            <div class=\"ui-box\">\n              <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">店内の場所を知る<\/strong>\n              <small class=\"ui-caption\">查询店内设施<\/small>\n            <\/div>\n            <span class=\"icon\" aria-hidden=\"true\">›<\/span>\n          <\/div>\n        <\/button>\n      \n        <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;sell&quot;}\" style=\"background:#e6ede4\">\n          <div class=\"ui-row\">\n            <span class=\"icon\" aria-hidden=\"true\">□<\/span>\n            <div class=\"ui-box\">\n              <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">買取について<\/strong>\n              <small class=\"ui-caption\">了解出售服务<\/small>\n            <\/div>\n            <span class=\"icon\" aria-hidden=\"true\">›<\/span>\n          <\/div>\n        <\/button>\n      \n        <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\" style=\"background:#e6ede4\">\n          <div class=\"ui-row\">\n            <span class=\"icon\" aria-hidden=\"true\">◇<\/span>\n            <div class=\"ui-box\">\n              <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">スタッフに相談する<\/strong>\n              <small class=\"ui-caption\">寻求员工帮助<\/small>\n            <\/div>\n            <span class=\"icon\" aria-hidden=\"true\">›<\/span>\n          <\/div>\n        <\/button>\n      \n    \n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","category":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">商品カテゴリー<\/strong>\n      <span class=\"ui-text\">请选择商品类别<\/span>\n      <div class=\"ui-grid\" style=\"--cols:2\">\n        \n          <div class=\"ui-grid-item\">\n            <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;category&quot;:&quot;衣類&quot;,&quot;screen&quot;:&quot;subcategory&quot;}\" style=\"background:#e6ede4\">\n              \n              <strong class=\"ui-title size-lg\">衣類<\/strong>\n            <\/button>\n          <\/div>\n        \n          <div class=\"ui-grid-item\">\n            <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;category&quot;:&quot;家具&quot;,&quot;screen&quot;:&quot;subcategory&quot;}\" style=\"background:#e6ede4\">\n              \n              <strong class=\"ui-title size-lg\">家具<\/strong>\n            <\/button>\n          <\/div>\n        \n          <div class=\"ui-grid-item\">\n            <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;category&quot;:&quot;家電&quot;,&quot;screen&quot;:&quot;subcategory&quot;}\" style=\"background:#e6ede4\">\n              \n              <strong class=\"ui-title size-lg\">家電<\/strong>\n            <\/button>\n          <\/div>\n        \n          <div class=\"ui-grid-item\">\n            <button class=\"ui-pressable\" type=\"button\" data-state=\"{&quot;category&quot;:&quot;生活雑貨&quot;,&quot;screen&quot;:&quot;subcategory&quot;}\" style=\"background:#e6ede4\">\n              \n              <strong class=\"ui-title size-lg\">生活雑貨<\/strong>\n            <\/button>\n          <\/div>\n        \n      <\/div>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","facility":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">店内施設<\/strong>\n      \n        <div class=\"ui-box\" style=\"background:#e6ede4\">\n          <strong>お手洗い<\/strong>\n          <span class=\"ui-text\">洗手间 · 示例位置 A-01<\/span>\n        <\/div>\n      \n        <div class=\"ui-box\" style=\"background:#e6ede4\">\n          <strong>休憩スペース<\/strong>\n          <span class=\"ui-text\">休息区 · 示例位置 B-02<\/span>\n        <\/div>\n      \n        <div class=\"ui-box\" style=\"background:#e6ede4\">\n          <strong>レジ<\/strong>\n          <span class=\"ui-text\">收银台 · 示例位置 C-01<\/span>\n        <\/div>\n      \n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","sell":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">買取の流れ<\/strong>\n      \n        <div class=\"ui-row\">\n          <div class=\"ui-box size-34px\" style=\"background:#d6e4d4\"><strong>1<\/strong><\/div>\n          <span class=\"ui-text\">受付 · 商品登记<\/span>\n        <\/div>\n      \n        <div class=\"ui-row\">\n          <div class=\"ui-box size-34px\" style=\"background:#d6e4d4\"><strong>2<\/strong><\/div>\n          <span class=\"ui-text\">査定 · 等待估价<\/span>\n        <\/div>\n      \n        <div class=\"ui-row\">\n          <div class=\"ui-box size-34px\" style=\"background:#d6e4d4\"><strong>3<\/strong><\/div>\n          <span class=\"ui-text\">金額確認 · 确认金额<\/span>\n        <\/div>\n      \n        <div class=\"ui-row\">\n          <div class=\"ui-box size-34px\" style=\"background:#d6e4d4\"><strong>4<\/strong><\/div>\n          <span class=\"ui-text\">お支払い · 完成交易<\/span>\n        <\/div>\n      \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">咨询工作人员<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","help":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <div class=\"ui-box\">\n        <span class=\"icon\" aria-hidden=\"true\">◇<\/span>\n        <strong class=\"ui-title size-xl\">スタッフサポート<\/strong>\n        <span class=\"ui-text\">您可以在此提出协助需求。<\/span>\n        <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;requested&quot;}\">模拟发送协助请求<\/button>\n      <\/div>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","requested":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <div class=\"ui-box\">\n        <span class=\"icon\" aria-hidden=\"true\">✓<\/span>\n        <strong class=\"ui-title size-xl\">サポートリクエスト<\/strong>\n        <span class=\"ui-text\">协助请求模拟完成。<\/span>\n        <small class=\"ui-caption\">实际系统需要连接员工响应机制，本原型不会通知真实工作人员。<\/small>\n      <\/div>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","subcategory:衣類":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">衣類<\/strong>\n      <span class=\"ui-text\">请选择具体商品类型<\/span>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;婦人服&quot;,&quot;screen&quot;:&quot;route&quot;}\">婦人服<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;紳士服&quot;,&quot;screen&quot;:&quot;route&quot;}\">紳士服<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;靴・バッグ&quot;,&quot;screen&quot;:&quot;route&quot;}\">靴・バッグ<\/button>\n      \n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:婦人服":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">婦人服 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:紳士服":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">紳士服 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:靴・バッグ":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">靴・バッグ 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","subcategory:家具":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">家具<\/strong>\n      <span class=\"ui-text\">请选择具体商品类型<\/span>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;椅子&quot;,&quot;screen&quot;:&quot;route&quot;}\">椅子<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;テーブル&quot;,&quot;screen&quot;:&quot;route&quot;}\">テーブル<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;収納家具&quot;,&quot;screen&quot;:&quot;route&quot;}\">収納家具<\/button>\n      \n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:椅子":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">椅子 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:テーブル":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">テーブル 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:収納家具":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">収納家具 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","subcategory:家電":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">家電<\/strong>\n      <span class=\"ui-text\">请选择具体商品类型<\/span>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;生活家電&quot;,&quot;screen&quot;:&quot;route&quot;}\">生活家電<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;調理家電&quot;,&quot;screen&quot;:&quot;route&quot;}\">調理家電<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;オーディオ&quot;,&quot;screen&quot;:&quot;route&quot;}\">オーディオ<\/button>\n      \n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:生活家電":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">生活家電 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:調理家電":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">調理家電 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:オーディオ":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">オーディオ 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","subcategory:生活雑貨":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">生活雑貨<\/strong>\n      <span class=\"ui-text\">请选择具体商品类型<\/span>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;食器&quot;,&quot;screen&quot;:&quot;route&quot;}\">食器<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;キッチン用品&quot;,&quot;screen&quot;:&quot;route&quot;}\">キッチン用品<\/button>\n      \n        <button class=\"ui-button size-lg\" type=\"button\" data-state=\"{&quot;item&quot;:&quot;日用品&quot;,&quot;screen&quot;:&quot;route&quot;}\">日用品<\/button>\n      \n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:食器":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">食器 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:キッチン用品":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">キッチン用品 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n","route:日用品":"<div class=\"ui-box\" style=\"background:#dedbd1\">\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\" style=\"color:#244e3c\">RE:POINT<\/strong>\n    <small class=\"ui-caption\">Information Point / 02<\/small>\n  <\/div>\n  <div class=\"ui-box\" style=\"background:#f9f9f3\">\n    \n      <strong class=\"ui-title size-xl\">日用品 売場<\/strong>\n      <small class=\"ui-caption\">示例店铺 · 模拟位置<\/small>\n      <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 280 175\" width=\"100%\">\n        <rect x=\"4\" y=\"4\" width=\"272\" height=\"167\" rx=\"4\" fill=\"#e9e8df\" stroke=\"#9a9f91\"/>\n        \n          \n            <rect x=\"20\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"20\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"85\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"85\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n          \n            <rect x=\"150\" y=\"15\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n            <rect x=\"150\" y=\"77\" width=\"40\" height=\"43\" rx=\"2\" fill=\"#c7cfc1\"/>\n          \n        \n        <rect x=\"215\" y=\"15\" width=\"47\" height=\"105\" fill=\"#d8e3d3\" stroke=\"#68856a\"/>\n        <text x=\"238\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#305a3e\">B-03<\/text>\n        <path d=\"M40 148 H202 V66 H238\" fill=\"none\" stroke=\"#326748\" stroke-width=\"4\" stroke-dasharray=\"6 3\"/>\n        <circle cx=\"40\" cy=\"148\" r=\"8\" fill=\"#326748\"/>\n        <circle cx=\"238\" cy=\"66\" r=\"8\" fill=\"#326748\"/>\n        <text x=\"40\" y=\"166\" font-size=\"9\" text-anchor=\"middle\" fill=\"#326748\">現在地<\/text>\n      <\/svg>\n      <strong class=\"ui-title size-lg\" style=\"color:#315840\">B-03 エリア<\/strong>\n      <span class=\"ui-text\">请沿主通道前往 B-03 区域。<\/span>\n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;help&quot;}\">スタッフに相談する · 请求帮助<\/button>\n    \n    \n      <button class=\"ui-button\" type=\"button\" data-state=\"{&quot;screen&quot;:&quot;home&quot;}\"><span class=\"icon\" aria-hidden=\"true\">⌂<\/span> ホーム · 返回首页<\/button>\n    \n  <\/div>\n  <small class=\"ui-caption\">RE:POINT · Interactive Concept Prototype<\/small>\n<\/div>\n"},"layouts":{"A":"<div class=\"ui-card\">\n  <div class=\"store-switch\" role=\"group\" aria-label=\"选择店铺类型\"><button class=\"ui-button\" type=\"button\" aria-pressed=\"true\" data-state=\"&#123;&quot;store&quot;:&quot;A&quot;&#125;\">Type A<\/button><button class=\"ui-button\" type=\"button\" aria-pressed=\"false\" data-state=\"&#123;&quot;store&quot;:&quot;B&quot;&#125;\">Type B<\/button><button class=\"ui-button\" type=\"button\" aria-pressed=\"false\" data-state=\"&#123;&quot;store&quot;:&quot;C&quot;&#125;\">Type C<\/button><\/div>\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\">单层衣物店<\/strong>\n    \n    <small class=\"ui-caption\">2个示意节点<\/small>\n  <\/div>\n  <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 320 250\" width=\"100%\">\n    <rect x=\"0\" y=\"0\" width=\"320\" height=\"250\" rx=\"5\" fill=\"#eeece5\"/>\n    \n      <rect x=\"10\" y=\"10\" width=\"300\" height=\"225\" fill=\"#f8f6f0\" stroke=\"#8e9488\" stroke-width=\"1.5\"/>\n      <rect x=\"25\" y=\"230\" width=\"40\" height=\"8\" fill=\"#eeece5\"/>\n      <path d=\"M45 213 H92 V120 H250 V45\" stroke=\"#6d957c\" stroke-dasharray=\"4 3\" fill=\"none\" stroke-width=\"1.7\"/>\n    \n    \n      <rect x=\"40\" y=\"40\" width=\"38\" height=\"65\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M45 45 H73 V100 H45 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"105\" y=\"40\" width=\"38\" height=\"65\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M110 45 H138 V100 H110 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"170\" y=\"40\" width=\"38\" height=\"65\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M175 45 H203 V100 H175 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"40\" y=\"135\" width=\"38\" height=\"48\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M45 140 H73 V178 H45 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"105\" y=\"135\" width=\"38\" height=\"48\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M110 140 H138 V178 H110 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"170\" y=\"135\" width=\"38\" height=\"48\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M175 140 H203 V178 H175 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n    \n      <circle cx=\"45\" cy=\"213\" r=\"13\" fill=\"#4f795e\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"45\" y=\"217\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">W<\/text>\n    \n      <circle cx=\"250\" cy=\"45\" r=\"13\" fill=\"#486d82\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"250\" y=\"49\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">A<\/text>\n    \n    <text x=\"45\" y=\"246\" font-size=\"9\" fill=\"#526154\" text-anchor=\"middle\">ENTRANCE<\/text>\n  <\/svg>\n  <span class=\"ui-text\">将入口信息和人工协助尽量整合，降低空间占用。<\/span>\n  <div class=\"ui-grid\" style=\"--cols:2\">\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#4f795e\"><small class=\"ui-caption\">W 入口节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#729d83\"><small class=\"ui-caption\">I 信息节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#486d82\"><small class=\"ui-caption\">A 协助节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#b5955d\"><small class=\"ui-caption\">S 出售节点<\/small><\/div><\/div>\n    \n  <\/div>\n<\/div>\n","B":"<div class=\"ui-card\">\n  <div class=\"store-switch\" role=\"group\" aria-label=\"选择店铺类型\"><button class=\"ui-button\" type=\"button\" aria-pressed=\"false\" data-state=\"&#123;&quot;store&quot;:&quot;A&quot;&#125;\">Type A<\/button><button class=\"ui-button\" type=\"button\" aria-pressed=\"true\" data-state=\"&#123;&quot;store&quot;:&quot;B&quot;&#125;\">Type B<\/button><button class=\"ui-button\" type=\"button\" aria-pressed=\"false\" data-state=\"&#123;&quot;store&quot;:&quot;C&quot;&#125;\">Type C<\/button><\/div>\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\">单层综合店<\/strong>\n    \n    <small class=\"ui-caption\">4个示意节点<\/small>\n  <\/div>\n  <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 320 250\" width=\"100%\">\n    <rect x=\"0\" y=\"0\" width=\"320\" height=\"250\" rx=\"5\" fill=\"#eeece5\"/>\n    \n      <rect x=\"10\" y=\"10\" width=\"300\" height=\"225\" fill=\"#f8f6f0\" stroke=\"#8e9488\" stroke-width=\"1.5\"/>\n      <rect x=\"25\" y=\"230\" width=\"40\" height=\"8\" fill=\"#eeece5\"/>\n      <path d=\"M45 213 H155 V113 H260 V140 M155 113 H270 V42\" stroke=\"#6d957c\" stroke-dasharray=\"4 3\" fill=\"none\" stroke-width=\"1.7\"/>\n    \n    \n      <rect x=\"30\" y=\"30\" width=\"85\" height=\"50\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M35 35 H110 V75 H35 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"130\" y=\"30\" width=\"85\" height=\"50\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M135 35 H210 V75 H135 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"30\" y=\"95\" width=\"85\" height=\"65\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M35 100 H110 V155 H35 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"180\" y=\"95\" width=\"55\" height=\"65\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M185 100 H230 V155 H185 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"95\" y=\"185\" width=\"125\" height=\"25\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M100 190 H215 V205 H100 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n    \n      <circle cx=\"45\" cy=\"213\" r=\"13\" fill=\"#4f795e\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"45\" y=\"217\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">W<\/text>\n    \n      <circle cx=\"155\" cy=\"113\" r=\"13\" fill=\"#729d83\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"155\" y=\"117\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">I<\/text>\n    \n      <circle cx=\"260\" cy=\"140\" r=\"13\" fill=\"#486d82\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"260\" y=\"144\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">A<\/text>\n    \n      <circle cx=\"270\" cy=\"42\" r=\"13\" fill=\"#b5955d\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"270\" y=\"46\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">S<\/text>\n    \n    <text x=\"45\" y=\"246\" font-size=\"9\" fill=\"#526154\" text-anchor=\"middle\">ENTRANCE<\/text>\n  <\/svg>\n  <span class=\"ui-text\">根据不同商品区域和空间决策位置设置分布式信息支持。<\/span>\n  <div class=\"ui-grid\" style=\"--cols:2\">\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#4f795e\"><small class=\"ui-caption\">W 入口节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#729d83\"><small class=\"ui-caption\">I 信息节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#486d82\"><small class=\"ui-caption\">A 协助节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#b5955d\"><small class=\"ui-caption\">S 出售节点<\/small><\/div><\/div>\n    \n  <\/div>\n<\/div>\n","C":"<div class=\"ui-card\">\n  <div class=\"store-switch\" role=\"group\" aria-label=\"选择店铺类型\"><button class=\"ui-button\" type=\"button\" aria-pressed=\"false\" data-state=\"&#123;&quot;store&quot;:&quot;A&quot;&#125;\">Type A<\/button><button class=\"ui-button\" type=\"button\" aria-pressed=\"false\" data-state=\"&#123;&quot;store&quot;:&quot;B&quot;&#125;\">Type B<\/button><button class=\"ui-button\" type=\"button\" aria-pressed=\"true\" data-state=\"&#123;&quot;store&quot;:&quot;C&quot;&#125;\">Type C<\/button><\/div>\n  <div class=\"ui-row\">\n    <strong class=\"ui-title size-lg\">多层综合店<\/strong>\n    \n    <small class=\"ui-caption\">5个示意节点<\/small>\n  <\/div>\n  <svg role=\"img\" aria-label=\"设计示意图\" viewBox=\"0 0 320 250\" width=\"100%\">\n    <rect x=\"0\" y=\"0\" width=\"320\" height=\"250\" rx=\"5\" fill=\"#eeece5\"/>\n    \n      <rect x=\"10\" y=\"10\" width=\"140\" height=\"225\" fill=\"#f8f6f0\" stroke=\"#8e9488\" stroke-width=\"1.5\"/>\n      <rect x=\"170\" y=\"10\" width=\"140\" height=\"225\" fill=\"#f8f6f0\" stroke=\"#8e9488\" stroke-width=\"1.5\"/>\n      <text x=\"80\" y=\"25\" font-size=\"10\" text-anchor=\"middle\" fill=\"#6d786b\">1F<\/text>\n      <text x=\"240\" y=\"25\" font-size=\"10\" text-anchor=\"middle\" fill=\"#6d786b\">2F<\/text>\n      \n        <rect x=\"101\" y=\"185\" width=\"30\" height=\"40\" fill=\"#d8d6cd\" stroke=\"#aaa\"/>\n        <path d=\"M101 191 h30\" stroke=\"#9d9f96\"/><path d=\"M101 198 h30\" stroke=\"#9d9f96\"/><path d=\"M101 205 h30\" stroke=\"#9d9f96\"/><path d=\"M101 212 h30\" stroke=\"#9d9f96\"/><path d=\"M101 219 h30\" stroke=\"#9d9f96\"/>\n      \n        <rect x=\"255\" y=\"185\" width=\"30\" height=\"40\" fill=\"#d8d6cd\" stroke=\"#aaa\"/>\n        <path d=\"M255 191 h30\" stroke=\"#9d9f96\"/><path d=\"M255 198 h30\" stroke=\"#9d9f96\"/><path d=\"M255 205 h30\" stroke=\"#9d9f96\"/><path d=\"M255 212 h30\" stroke=\"#9d9f96\"/><path d=\"M255 219 h30\" stroke=\"#9d9f96\"/>\n      \n      <path d=\"M38 210 H116 V150 M116 210 H160 V240 H270 V175 H210 V65\" stroke=\"#6d957c\" stroke-dasharray=\"4 3\" fill=\"none\" stroke-width=\"1.7\"/>\n    \n    \n      <rect x=\"25\" y=\"30\" width=\"55\" height=\"70\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M30 35 H75 V95 H30 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"25\" y=\"115\" width=\"55\" height=\"50\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M30 120 H75 V160 H30 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"178\" y=\"30\" width=\"65\" height=\"25\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M183 35 H238 V50 H183 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"178\" y=\"95\" width=\"45\" height=\"60\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M183 100 H218 V150 H183 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n      <rect x=\"235\" y=\"95\" width=\"45\" height=\"60\" rx=\"2\" fill=\"#d7cbb8\" stroke=\"#b5aa96\"/>\n      <path d=\"M240 100 H275 V150 H240 Z\" stroke=\"#b5aa96\" fill=\"none\"/>\n    \n    \n      <circle cx=\"38\" cy=\"210\" r=\"13\" fill=\"#4f795e\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"38\" y=\"214\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">W<\/text>\n    \n      <circle cx=\"116\" cy=\"150\" r=\"13\" fill=\"#729d83\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"116\" y=\"154\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">I<\/text>\n    \n      <circle cx=\"115\" cy=\"40\" r=\"13\" fill=\"#b5955d\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"115\" y=\"44\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">S<\/text>\n    \n      <circle cx=\"270\" cy=\"175\" r=\"13\" fill=\"#729d83\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"270\" y=\"179\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">I<\/text>\n    \n      <circle cx=\"210\" cy=\"65\" r=\"13\" fill=\"#486d82\" stroke=\"white\" stroke-width=\"2\"/>\n      <text x=\"210\" y=\"69\" font-size=\"12\" fill=\"white\" text-anchor=\"middle\" font-weight=\"bold\">A<\/text>\n    \n    <text x=\"38\" y=\"246\" font-size=\"9\" fill=\"#526154\" text-anchor=\"middle\">ENTRANCE<\/text>\n  <\/svg>\n  <span class=\"ui-text\">重点保持跨楼层信息连续性，在楼梯、电梯及楼层入口提供支持。<\/span>\n  <div class=\"ui-grid\" style=\"--cols:2\">\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#4f795e\"><small class=\"ui-caption\">W 入口节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#729d83\"><small class=\"ui-caption\">I 信息节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#486d82\"><small class=\"ui-caption\">A 协助节点<\/small><\/div><\/div>\n    \n      <div class=\"ui-grid-item\"><div class=\"ui-row\"><div class=\"ui-box size-10px\" style=\"background:#b5955d\"><small class=\"ui-caption\">S 出售节点<\/small><\/div><\/div>\n    \n  <\/div>\n<\/div>\n"}};
+function showReferenceImage(img){if(img.naturalWidth>0)img.dataset.loaded='';}
+document.addEventListener('load', event => {
+  if(event.target.matches?.('.references img'))showReferenceImage(event.target);
+},true);
+document.querySelectorAll('.references img').forEach(showReferenceImage);
+const state = {screen:'home', category:'衣類', item:'婦人服', store:'A'};
+document.addEventListener('click', event => {
+  const button=event.target.closest('button[data-state]');
+  if (!button) return;
+  const change=JSON.parse(button.dataset.state);
+  Object.assign(state,change);
+  const storeChange='store' in change;
+  const target=document.getElementById(storeChange?'layouts':'prototype');
+  const key=state.screen==='subcategory'?state.screen+':'+state.category:
+            state.screen==='route'?state.screen+':'+state.item:state.screen;
+  target.innerHTML=storeChange?views.layouts[state.store]:views.prototype[key];
+  const next=target.querySelector(storeChange?'[aria-pressed=true]':'.ui-title.size-xl,.ui-title.size-2xl');
+  if(next){if(!storeChange)next.tabIndex=-1;next.focus({preventScroll:true});}
+});
+
+const deckLinks=[...document.querySelectorAll('.deck-header a')];
+const slides=deckLinks.map(link=>document.getElementById(link.hash.slice(1)));
+const previous=document.getElementById('previous');
+const next=document.getElementById('next');
+let current=0;
+function selectSlide(){
+  const index=deckLinks.findIndex(link=>link.hash===location.hash);
+  current=Math.max(0,index);
+  slides.forEach((slide,i)=>{
+    slide.hidden=i!==current;
+    if(i===current){
+      slide.scrollTop=0;
+      deckLinks[i].setAttribute('aria-current','page');
+    }else deckLinks[i].removeAttribute('aria-current');
+  });
+  previous.disabled=current===0;
+  next.disabled=current===slides.length-1;
+  document.getElementById('page-count').textContent=(current+1)+' / '+slides.length;
+}
+function moveSlide(offset){
+  const link=deckLinks[current+offset];
+  if(link)location.hash=link.hash;
+}
+previous.addEventListener('click',()=>moveSlide(-1));
+next.addEventListener('click',()=>moveSlide(1));
+window.addEventListener('hashchange',selectSlide);
+selectSlide();
+</script></body></html>
